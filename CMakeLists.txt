@@ -13,10 +13,17 @@ SET(CMAKE_AUTOMOC ON)
 # Find QT5 Widgets module
 FIND_PACKAGE(Qt5Widgets)
 
+# Find QT5 SQL module
+FIND_PACKAGE(Qt5Sql)
+
 # Include the Qt5 Widgets files
 INCLUDE_DIRECTORIES(${Qt5Widgets_INCLUDE_DIRS})
 
+# Include the Qt5 SQL files
+INCLUDE_DIRECTORIES(${Qt5Sql_INCLUDE_DIRS})
+
 INCLUDE(${Qt5Widgets_DIR}/Qt5WidgetsConfig.cmake)
+INCLUDE(${Qt5Sql_DIR}/Qt5SqlConfig.cmake)
 
 # The makefile should be verbose by default
 SET(CMAKE_VERBOSE_MAKEFILE TRUE)

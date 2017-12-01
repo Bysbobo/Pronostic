@@ -5,6 +5,7 @@
 ********************************************/
 
 #include "mainwindow.h"
+#include "dbmanager.h"
 #include <QMenuBar>
 #include <QStatusBar>
 
@@ -22,6 +23,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Show the status bar
     statusBar()->showMessage(tr("Ready"), 2000);
+
+    // DB Gestionning
+    DbManager db(ROOTTODB);
+    
 }
 
 MainWindow::~MainWindow()
