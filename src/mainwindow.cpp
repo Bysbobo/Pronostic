@@ -8,9 +8,9 @@
 #include "dbmanager.h"
 #include <QMenuBar>
 #include <QStatusBar>
+#include <QDebug>
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     // Set window properties
     setWindowTitle(tr("Prono"));
@@ -21,12 +21,11 @@ MainWindow::MainWindow(QWidget *parent)
     createActions();
     createMenus();
 
+    // Create the DB connection
+    apDbConnection = new DbManager(ROOTTODB);
+
     // Show the status bar
     statusBar()->showMessage(tr("Ready"), 2000);
-
-    // DB Gestionning
-    DbManager db(ROOTTODB);
-    
 }
 
 MainWindow::~MainWindow()
@@ -38,16 +37,19 @@ MainWindow::~MainWindow()
     delete apExitAction;
 
     // League actions
+    delete apReadLeagueAction;
     delete apAddLeagueAction;
     delete apEditLeagueAction;
     delete apDeleteLeagueAction;
 
     // Team actions
+    delete apReadTeamAction;
     delete apAddTeamAction;
     delete apEditTeamAction;
     delete apDeleteTeamAction;
 
     // Match actions
+    delete apReadMatchAction;
     delete apAddMatchAction;
     delete apEditMatchAction;
     delete apDeleteMatchAction;
@@ -87,6 +89,9 @@ void MainWindow::createActions()
     QObject::connect(apExitAction, SIGNAL(triggered(bool)), this, SLOT(exit()));
 
     // League Menu Actions
+    apReadLeagueAction = new QAction(tr("Display all the leagues"), this);
+    QObject::connect(apReadLeagueAction, SIGNAL(triggered(bool)), this, SLOT(displayLeagues()));
+
     apAddLeagueAction = new QAction(tr("Add League..."), this);
     apAddLeagueAction->setStatusTip(tr("Create a new league"));
     QObject::connect(apAddLeagueAction, SIGNAL(triggered(bool)), this, SLOT(addLeague()));
@@ -100,6 +105,9 @@ void MainWindow::createActions()
     QObject::connect(apDeleteLeagueAction, SIGNAL(triggered(bool)), this, SLOT(deleteLeague()));
 
     // Team actions
+    apReadTeamAction = new QAction(tr("Display all the teams"), this);
+    QObject::connect(apReadTeamAction, SIGNAL(triggered(bool)), this, SLOT(displayTeams()));
+
     apAddTeamAction = new QAction(tr("Add Team..."), this);
     apAddTeamAction->setStatusTip(tr("Create a new team"));
     QObject::connect(apAddTeamAction, SIGNAL(triggered(bool)), this, SLOT(addTeam()));
@@ -113,6 +121,9 @@ void MainWindow::createActions()
     QObject::connect(apDeleteTeamAction, SIGNAL(triggered(bool)), this, SLOT(deleteTeam()));
 
     // Match actions
+    apReadMatchAction = new QAction(tr("Display all the matches"), this);
+    QObject::connect(apReadMatchAction, SIGNAL(triggered(bool)), this, SLOT(displayMatches()));
+
     apAddMatchAction = new QAction(tr("Add Match..."), this);
     apAddMatchAction->setStatusTip(tr("Create a new match"));
     QObject::connect(apAddMatchAction, SIGNAL(triggered(bool)), this, SLOT(addMatch()));
@@ -144,18 +155,21 @@ void MainWindow::createMenus()
 
     // League Menu
     apLeagueMenu = menuBar()->addMenu(tr("League"));
+    apLeagueMenu->addAction(apReadLeagueAction);
     apLeagueMenu->addAction(apAddLeagueAction);
     apLeagueMenu->addAction(apEditLeagueAction);
     apLeagueMenu->addAction(apDeleteLeagueAction);
 
     // Team Menu
     apTeamMenu = menuBar()->addMenu(tr("Team"));
+    apTeamMenu->addAction(apReadTeamAction);
     apTeamMenu->addAction(apAddTeamAction);
     apTeamMenu->addAction(apEditTeamAction);
     apTeamMenu->addAction(apDeleteTeamAction);
 
     // Match Menu
     apMatchMenu = menuBar()->addMenu(tr("Match"));
+    apMatchMenu->addAction(apReadMatchAction);
     apMatchMenu->addAction(apAddMatchAction);
     apMatchMenu->addAction(apEditMatchAction);
     apMatchMenu->addAction(apDeleteMatchAction);
@@ -180,9 +194,15 @@ void MainWindow::saveAs()
 
 }
 
+void MainWindow::displayLeagues()
+{
+    if (apDbConnection->isOpen())
+        apDbConnection->displayLeagues();
+}
+
 void MainWindow::addLeague()
 {
-
+    
 }
 
 void MainWindow::editLeague()
@@ -193,6 +213,12 @@ void MainWindow::editLeague()
 void MainWindow::deleteLeague()
 {
 
+}
+
+void MainWindow::displayTeams()
+{
+    if (apDbConnection->isOpen())
+        apDbConnection->displayTeams();
 }
 
 void MainWindow::addTeam()
@@ -208,6 +234,12 @@ void MainWindow::editTeam()
 void MainWindow::deleteTeam()
 {
 
+}
+
+void MainWindow::displayMatches()
+{
+    if (apDbConnection->isOpen())
+        apDbConnection->displayMatches();
 }
 
 void MainWindow::addMatch()

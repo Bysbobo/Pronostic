@@ -7,6 +7,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "dbmanager.h"
 #include <QMainWindow>
 #include <QMenu>
 #include <QAction>
@@ -52,6 +53,10 @@ private slots:
 
     // League Menu Actions
     /**
+     * @brief This slot is used to display all leagues when the display league action is clicked.
+     */
+    void displayLeagues();
+    /**
      * @brief This slot is used to add a league when the add league action is clicked.
      */
     void addLeague();
@@ -66,6 +71,10 @@ private slots:
 
     // Team Menu Actions
     /**
+     * @brief This slot is used to display all teams when the display team action is clicked.
+     */
+    void displayTeams();
+    /**
      * @brief This slot is used to add a team when the add team action is clicked.
      */
     void addTeam();
@@ -79,6 +88,10 @@ private slots:
     void deleteTeam();
 
     // Match Menu Actions
+    /**
+     * @brief This slot is used to display all matches when the display match action is clicked.
+     */
+    void displayMatches();
     /**
      * @brief This slot is used to add a match when the add match action is clicked.
      */
@@ -107,6 +120,12 @@ private:
      * @brief This method creates the menus. It should be called after the createActions() method.
      */
     void createMenus();
+
+    // DB Access
+    /**
+     * @brief aDbConnection : The open connection to DB.
+     */
+    DbManager *apDbConnection;
 
     // Menus
     /**
@@ -150,6 +169,10 @@ private:
 
     // League actions
     /**
+     * @brief apReadLeagueAction : The read league action.
+     */
+    QAction *apReadLeagueAction;
+    /**
      * @brief apAddLeagueAction : The add league action.
      */
     QAction *apAddLeagueAction;
@@ -164,6 +187,10 @@ private:
 
     // Team actions
     /**
+     * @brief apReadTeamAction : The read team action.
+     */
+    QAction *apReadTeamAction;
+    /**
      * @brief apAddTeamAction : The add team action.
      */
     QAction *apAddTeamAction;
@@ -177,6 +204,10 @@ private:
     QAction *apDeleteTeamAction;
 
     // Match actions
+    /**
+     * @brief apReadMatchAction : The read match action.
+     */
+    QAction *apReadMatchAction;
     /**
      * @brief apAddMatchAction : The add match action.
      */
