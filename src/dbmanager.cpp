@@ -1,4 +1,4 @@
- /********************************************
+/********************************************
     * File Name : 	"dbmanager.cpp"
     * Authors : 	P. Boix and E. Moussy
     * Created on : 	30/11/2017
@@ -28,7 +28,10 @@ DbManager::DbManager(const QString& path)
 DbManager::~DbManager()
 {
     if (aDb.isOpen())
+    {
         aDb.close();
+        qDebug() << "Database: deconnection ok";
+    }
 }
 
 bool DbManager::isOpen()

@@ -63,6 +63,9 @@ MainWindow::~MainWindow()
     delete apTeamMenu;
     delete apMatchMenu;
     delete apHelpMenu;
+
+    // DB Connection
+    delete apDbConnection;
 }
 
 void MainWindow::createActions()

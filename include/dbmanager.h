@@ -9,6 +9,9 @@
 
 #include <QSqlDatabase>
 
+/**
+ * @brief The DbManager class defines the connection to the database for information for Prono application.
+ */
 class DbManager
 {
 public:
@@ -39,6 +42,9 @@ public:
 	bool displayLeagues();
 
 private:
+	/**
+     * @brief aDb : The DB connection.
+     */
 	QSqlDatabase aDb;
 };
 
