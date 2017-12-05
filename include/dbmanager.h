@@ -15,7 +15,7 @@
 class DbManager
 {
 public:
-	    /**
+	/**
      * @brief The constructor of the DB Manager.
      * @param path : The path of the database.
      */
@@ -33,13 +33,28 @@ public:
      */
 	bool displayTeams();
 	/**
+     * @brief This method is used to extract teams information from database.
+     * @param team : The required team.
+     */
+	bool extractTeam(const int& team);
+	/**
      * @brief This method is used to display all matches from the database.
      */
 	bool displayMatches();
 	/**
+     * @brief This method is used to extract matches information from database.
+     * @param match : The required match.
+     */
+	bool extractMatch(const int& match);
+	/**
      * @brief This method is used to display all leagues from the database.
      */
 	bool displayLeagues();
+	/**
+     * @brief This method is used to extract leagues information from database.
+     * @param league : The required league.
+     */
+	bool extractLeague(const int& league);
 
 private:
 	/**

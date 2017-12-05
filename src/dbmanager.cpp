@@ -71,6 +71,11 @@ bool DbManager::displayTeams()
     return success;
 }
 
+bool DbManager::extractTeam(const int& team)
+{
+    return true;
+}
+
 bool DbManager::displayMatches()
 {
 	bool success = false;
@@ -109,6 +114,11 @@ bool DbManager::displayMatches()
     return success;
 }
 
+bool DbManager::extractMatch(const int& match)
+{
+    return true;
+}
+
 bool DbManager::displayLeagues()
 {
     bool success = false;
@@ -136,4 +146,9 @@ bool DbManager::displayLeagues()
         qDebug() << "printTeam error: " << query.lastError();
 
     return success;
+}
+
+bool DbManager::extractLeague(const int& league)
+{
+    return true;
 }

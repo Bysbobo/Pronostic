@@ -6,6 +6,9 @@
 
 #include "mainwindow.h"
 #include "dbmanager.h"
+#include "team.h"
+#include "match.h"
+#include "league.h"
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QDebug>
@@ -23,6 +26,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     // Create the DB connection
     apDbConnection = new DbManager(ROOTTODB);
+
+    Team *t = new Team(apDbConnection);
+    Match *m = new Match(apDbConnection);
+    League *l = new League(apDbConnection);
 
     // Show the status bar
     statusBar()->showMessage(tr("Ready"), 2000);

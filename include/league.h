@@ -7,17 +7,21 @@
 #ifndef LEAGUE_H
 #define LEAGUE_H
 
+#include <vector>
 #include <QString>
+#include "dbmanager.h"
 
 class League
 {
 public:
-	League();
+	League(DbManager *path = 0);
 	~League();
 
 private:
 	QString aName;
 	QString aArea;
+	std::vector<int> aTeamsId;
+	std::vector<int> aMatchesId;
 };
 
 #endif // LEAGUE_H

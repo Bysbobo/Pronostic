@@ -5,4 +5,20 @@
 ********************************************/
 
 #include "league.h"
+#include "dbmanager.h"
+#include <iostream>
 
+League::League(DbManager *dbMan)
+{
+	if (dbMan->isOpen())
+	{
+		std::cout << "League" << std::endl;
+		dbMan->displayLeagues();
+		if (dbMan->extractLeague(1)) std::cout << "OK league" << std::endl;
+	}
+}
+
+League::~League()
+{
+
+}
