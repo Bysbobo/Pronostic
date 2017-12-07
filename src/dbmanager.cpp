@@ -45,7 +45,7 @@ bool DbManager::displayTeams()
 
     QSqlQuery query;
     query.prepare("SELECT * FROM team;");
-    if (query.exec())
+    if (isOpen() && query.exec())
     {
         success = true;
 
@@ -71,9 +71,39 @@ bool DbManager::displayTeams()
     return success;
 }
 
-bool DbManager::extractTeam(const int& team)
+bool DbManager::extractTeam(const QString& teamId)
 {
-    return true;
+    bool success = false;
+
+    QSqlQuery query;
+    query.prepare("SELECT * FROM team WHERE id = (:teamId) ;");
+    query.bindValue(":teamId", teamId);
+
+    if (isOpen() && query.exec())
+    {
+        if (query.next())
+        {
+            success = true;
+
+            int idId = query.record().indexOf("id");
+            int idSmallName = query.record().indexOf("small_name");
+            int idFullName = query.record().indexOf("full_name");
+            int idLeaguesId = query.record().indexOf("leagues_id");
+
+            QString theId = query.value(idId).toString();
+            QString theSmallName = query.value(idSmallName).toString();
+            QString theFullName = query.value(idFullName).toString();
+            QString theLeaguesId = query.value(idLeaguesId).toString();
+            qDebug() << theId << "-"
+                     << theSmallName << "-"
+                     << theFullName << "-"
+                     << theLeaguesId;
+        }
+    }
+    else
+        qDebug() << "extractTeam error: " << query.lastError();
+
+    return success;
 }
 
 bool DbManager::displayMatches()
@@ -82,7 +112,7 @@ bool DbManager::displayMatches()
 
     QSqlQuery query;
     query.prepare("SELECT * FROM match;");
-    if (query.exec())
+    if (isOpen() && query.exec())
     {
         success = true;
 
@@ -114,9 +144,45 @@ bool DbManager::displayMatches()
     return success;
 }
 
-bool DbManager::extractMatch(const int& match)
+bool DbManager::extractMatch(const QString& matchId)
 {
-    return true;
+    bool success = false;
+
+    QSqlQuery query;
+    query.prepare("SELECT * FROM match WHERE id = (:matchId) ;");
+    query.bindValue(":matchId", matchId);
+
+    if (isOpen() && query.exec())
+    {
+        if (query.next())
+        {
+            success = true;
+
+            int idId = query.record().indexOf("id");
+            int idHomeTeamId = query.record().indexOf("home_team_id");
+            int idAwayTeamId = query.record().indexOf("away_team_id");
+            int idLeagueId = query.record().indexOf("league_id");
+            int idHomeTeamScore = query.record().indexOf("home_team_score");
+            int idAwayTeamScore = query.record().indexOf("away_team_score");
+            
+            QString theId = query.value(idId).toString();
+            QString theHomeTeamId = query.value(idHomeTeamId).toString();
+            QString theAwayTeamId = query.value(idAwayTeamId).toString();
+            QString theLeagueId = query.value(idLeagueId).toString();
+            QString theHomeTeamScore = query.value(idHomeTeamScore).toString();
+            QString theAwayTeamScore = query.value(idAwayTeamScore).toString();
+            qDebug() << theId << "-"
+                     << theHomeTeamId << "-"
+                     << theAwayTeamId << "-"
+                     << theLeagueId << "-"
+                     << theHomeTeamScore << "-"
+                     << theAwayTeamScore;
+        }
+    }
+    else
+        qDebug() << "printTeam error: " << query.lastError();
+
+    return success;
 }
 
 bool DbManager::displayLeagues()
@@ -125,7 +191,7 @@ bool DbManager::displayLeagues()
 
     QSqlQuery query;
     query.prepare("SELECT * FROM league;");
-    if (query.exec())
+    if (isOpen() && query.exec())
     {
         success = true;
 
@@ -148,7 +214,34 @@ bool DbManager::displayLeagues()
     return success;
 }
 
-bool DbManager::extractLeague(const int& league)
+bool DbManager::extractLeague(const QString& leagueId)
 {
-    return true;
+    bool success = false;
+
+    QSqlQuery query;
+    query.prepare("SELECT * FROM league WHERE id = (:leagueId) ;");
+    query.bindValue(":leagueId", leagueId);
+
+    if (isOpen() && query.exec())
+    {
+        if (query.next())
+        {
+            success = true;
+
+            int idId = query.record().indexOf("id");
+            int idName = query.record().indexOf("name");
+            int idArea = query.record().indexOf("area");
+
+            QString theId = query.value(idId).toString();
+            QString theName = query.value(idName).toString();
+            QString theAera = query.value(idArea).toString();
+            qDebug() << theId << "-"
+                     << theName << "-"
+                     << theAera;
+        }
+    }
+    else
+        qDebug() << "printTeam error: " << query.lastError();
+
+    return success;
 }

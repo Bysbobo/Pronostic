@@ -36,7 +36,7 @@ public:
      * @brief This method is used to extract teams information from database.
      * @param team : The required team.
      */
-	bool extractTeam(const int& team);
+	bool extractTeam(const QString& teamId);
 	/**
      * @brief This method is used to display all matches from the database.
      */
@@ -45,7 +45,7 @@ public:
      * @brief This method is used to extract matches information from database.
      * @param match : The required match.
      */
-	bool extractMatch(const int& match);
+	bool extractMatch(const QString& matchId);
 	/**
      * @brief This method is used to display all leagues from the database.
      */
@@ -54,7 +54,7 @@ public:
      * @brief This method is used to extract leagues information from database.
      * @param league : The required league.
      */
-	bool extractLeague(const int& league);
+	bool extractLeague(const QString& leagueId);
 
 private:
 	/**

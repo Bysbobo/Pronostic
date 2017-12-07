@@ -13,8 +13,7 @@ League::League(DbManager *dbMan)
 	if (dbMan->isOpen())
 	{
 		std::cout << "League" << std::endl;
-		dbMan->displayLeagues();
-		if (dbMan->extractLeague(1)) std::cout << "OK league" << std::endl;
+		if (dbMan->extractLeague("1")) std::cout << "OK league" << std::endl;
 	}
 }
 

@@ -13,8 +13,7 @@ Team::Team(DbManager *dbMan)
 	if (dbMan->isOpen())
 	{
 		std::cout << "Team" << std::endl;
-		dbMan->displayTeams();
-		if (dbMan->extractTeam(17)) std::cout << "OK team" << std::endl;
+		if (dbMan->extractTeam("17")) std::cout << "OK team" << std::endl;
 	}
 }
 

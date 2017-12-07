@@ -13,8 +13,7 @@ Match::Match(DbManager *dbMan)
 	if (dbMan->isOpen())
 	{
 		std::cout << "Match" << std::endl;
-		dbMan->displayMatches();
-		if (dbMan->extractMatch(1)) std::cout << "OK match" << std::endl;
+		if (dbMan->extractMatch("1")) std::cout << "OK match" << std::endl;
 	}
 }
 
