@@ -64,12 +64,6 @@ private:
      * @brief aDb : The DB connection.
      */
 	QSqlDatabase aDb;
-
-	// Team information
-
-	// Match information
-
-
 };
 
 #endif // DBMANAGER_H

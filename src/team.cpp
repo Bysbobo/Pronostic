@@ -50,5 +50,5 @@ void Team::setLeagueIdList(const QString& leagueList)
 
 void Team::addAnOtherMatchId(int match)
 {
-	//aMatchesId.push_back(match);
+	
 }

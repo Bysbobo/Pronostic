@@ -1,3 +1,9 @@
+/********************************************
+    * File Name :   "addleaguewidget.cpp"
+    * Authors :     P. Boix and E. Moussy
+    * Created on :  08/12/2017
+********************************************/
+
 #ifndef ADDLEAGUEWIDGET_H
 #define ADDLEAGUEWIDGET_H
 
@@ -47,7 +53,6 @@ private:
      * @brief apCancelBtn : The buton to cancel the creation of the new league.
      */
     QPushButton *apCancelBtn;
-
 };
 
 

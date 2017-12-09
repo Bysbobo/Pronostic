@@ -1,3 +1,9 @@
+/********************************************
+    * File Name :   "addleaguewidget.cpp"
+    * Authors :     P. Boix and E. Moussy
+    * Created on :  08/12/2017
+********************************************/
+
 #include "widgets/addleaguewidget.h"
 #include <QMessageBox>
 
