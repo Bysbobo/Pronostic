@@ -5,11 +5,12 @@
 ********************************************/
 
 #include "mainwindow.h"
-#include "dbmanager.h"
 #include "team.h"
 #include "match.h"
 #include "league.h"
 #include "widgets/addleaguewidget.h"
+#include "widgets/addmatchwidget.h"
+#include "widgets/addteamwidget.h"
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QDebug>

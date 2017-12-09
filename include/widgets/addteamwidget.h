@@ -1,11 +1,11 @@
 /********************************************
-    * File Name :   "addleaguewidget.h"
+    * File Name :   "addteamwidget.h"
     * Authors :     P. Boix and E. Moussy
-    * Created on :  08/12/2017
+    * Created on :  09/12/2017
 ********************************************/
 
-#ifndef ADDLEAGUEWIDGET_H
-#define ADDLEAGUEWIDGET_H
+#ifndef ADDTEAMWIDGET_H
+#define ADDTEAMWIDGET_H
 
 #include <QWidget>
 #include <QLabel>
@@ -14,24 +14,24 @@
 #include <QGridLayout>
 
 /**
- * @brief The AddLeagueWidget class is a widget allowing to create a new league.
+ * @brief The AddTeamWidget class is a widget allowing to create a new team.
  */
-class AddLeagueWidget : public QWidget
+class AddTeamWidget : public QWidget
 {
 
 public:
-    /**
-     * @brief Constructor of the AddLeagueWidget class.
+	/**
+     * @brief Constructor of the AddTeamWidget class.
      * @param parent : The parent item of the widget.
      */
-    explicit AddLeagueWidget(QWidget *parent = 0);
-    /**
+	explicit AddTeamWidget(QWidget *parent = 0);
+	/**
      * @brief Destructor.
      */
-    ~AddLeagueWidget();
+	~AddTeamWidget();
 
 private:
-    /**
+	/**
      * @brief apMainLayout : The main layout of the widget.
      */
     QGridLayout *apMainLayout;
@@ -41,18 +41,18 @@ private:
      */
     QLabel *apNameLabel;
     /**
-     * @brief apNameLineEdit : The line edit in wich the name of the league should be inserted.
+     * @brief apNameLineEdit : The line edit in wich the name of the team should be inserted.
      */
     QLineEdit *apNameLineEdit;
 
     /**
-     * @brief apCreateBtn : The button to create the new league.
+     * @brief apCreateBtn : The button to create the new team.
      */
     QPushButton *apCreateBtn;
     /**
-     * @brief apCancelBtn : The buton to cancel the creation of the new league.
+     * @brief apCancelBtn : The buton to cancel the creation of the new team.
      */
     QPushButton *apCancelBtn;
 };
 
-#endif // ADDLEAGUEWIDGET_H
+#endif // ADDTEAMWIDGET_H

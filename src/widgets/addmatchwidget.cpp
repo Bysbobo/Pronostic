@@ -1,15 +1,15 @@
 /********************************************
-    * File Name :   "addleaguewidget.cpp"
+    * File Name :   "addmatchwidget.cpp"
     * Authors :     P. Boix and E. Moussy
-    * Created on :  08/12/2017
+    * Created on :  09/12/2017
 ********************************************/
 
-#include "widgets/addleaguewidget.h"
+#include "widgets/addmatchwidget.h"
 
-AddLeagueWidget::AddLeagueWidget(QWidget *parent) : QWidget(parent)
+AddMatchWidget::AddMatchWidget(QWidget *parent) : QWidget(parent)
 {
     // Set the window title
-    setWindowTitle(tr("Create League"));
+    setWindowTitle(tr("Create Match"));
 
     // Create the name label and line edit
     apNameLabel = new QLabel(tr("Name :"));
@@ -30,7 +30,7 @@ AddLeagueWidget::AddLeagueWidget(QWidget *parent) : QWidget(parent)
     setLayout(apMainLayout);
 }
 
-AddLeagueWidget::~AddLeagueWidget()
+AddMatchWidget::~AddMatchWidget()
 {
     delete apMainLayout;
     delete apNameLabel;
