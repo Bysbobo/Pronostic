@@ -5,19 +5,45 @@
 ********************************************/
 
 #include "match.h"
-#include "dbmanager.h"
-#include <iostream>
 
-Match::Match(DbManager *dbMan)
+Match::Match()
 {
-	if (dbMan->isOpen())
-	{
-		std::cout << "Match" << std::endl;
-		if (dbMan->extractMatch("1")) std::cout << "OK match" << std::endl;
-	}
+
 }
 
 Match::~Match()
 {
 
 }
+
+void Match::setId(const int& id)
+{
+	aId = id;
+}
+
+void Match::setLeagueId(const int& LeagueId)
+{
+	aLeagueId = LeagueId;
+}
+
+void Match::setHomeTeamName(const QString& homeTeamName)
+{
+	aHomeTeamName = homeTeamName;
+}
+
+void Match::setAwayTeamName(const QString& awayTeamName)
+{
+	aAwayTeamName = awayTeamName;
+}
+
+void Match::setHomeTeamScore(const int& homeTeamScore)
+{
+	aHomeTeamScore = homeTeamScore;
+}
+
+void Match::setAwayTeamScore(const int& awayTeamScore)
+{
+	aAwayTeamScore = awayTeamScore;
+}
+
+

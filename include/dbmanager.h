@@ -7,6 +7,9 @@
 #ifndef DBMANAGER_H
 #define DBMANAGER_H
 
+#include "team.h"
+#include "match.h"
+#include "league.h"
 #include <QSqlDatabase>
 
 /**
@@ -36,7 +39,7 @@ public:
      * @brief This method is used to extract teams information from database.
      * @param team : The required team.
      */
-	bool extractTeam(const QString& teamId);
+	bool extractTeam(const int& teamId, Team& t);
 	/**
      * @brief This method is used to display all matches from the database.
      */
@@ -45,7 +48,7 @@ public:
      * @brief This method is used to extract matches information from database.
      * @param match : The required match.
      */
-	bool extractMatch(const QString& matchId);
+	bool extractMatch(const int& matchId, Match& m);
 	/**
      * @brief This method is used to display all leagues from the database.
      */
@@ -54,13 +57,19 @@ public:
      * @brief This method is used to extract leagues information from database.
      * @param league : The required league.
      */
-	bool extractLeague(const QString& leagueId);
+	bool extractLeague(const int& leagueId, League& l);
 
 private:
 	/**
      * @brief aDb : The DB connection.
      */
 	QSqlDatabase aDb;
+
+	// Team information
+
+	// Match information
+
+
 };
 
 #endif // DBMANAGER_H

@@ -9,18 +9,25 @@
 
 #include <vector>
 #include <QString>
-#include "dbmanager.h"
 
 class Team
 {
 public:
-	Team(DbManager *path = 0);
+	Team();
 	~Team();
 
+	void setId(const int& id);
+	void setSmallName(const QString& name);
+	void setFullName(const QString& name);
+	void setLeagueIdList(const QString& leagueList);
+
+	void addAnOtherMatchId(int match);
 private:
+	int aId;
 	QString aSmallName;
 	QString aFullName;
 	std::vector<int> aLeaguesId;
+
 	std::vector<int> aMatchesId;
 };
 

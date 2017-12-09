@@ -9,6 +9,7 @@
 #include "team.h"
 #include "match.h"
 #include "league.h"
+#include "widgets/addleaguewidget.h"
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QDebug>
@@ -27,9 +28,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     // Create the DB connection
     apDbConnection = new DbManager(ROOTTODB);
 
-    Team *t = new Team(apDbConnection);
-    Match *m = new Match(apDbConnection);
-    League *l = new League(apDbConnection);
+    // Update boms from database
+    updateBoms(apDbConnection);
 
     // Show the status bar
     statusBar()->showMessage(tr("Ready"), 2000);
@@ -73,6 +73,30 @@ MainWindow::~MainWindow()
 
     // DB Connection
     delete apDbConnection;
+}
+
+void MainWindow::updateBoms(DbManager *d)
+{
+    Team *tmpT   = new Team();
+    for (int i = 1; d->extractTeam(i, *tmpT); ++i)
+    {
+        Team *t = new Team(*tmpT);
+        teamsId.push_back(t);
+    }
+
+    Match *tmpM  = new Match();
+    for (int i = 1; d->extractMatch(i, *tmpM); ++i)
+    {
+        Match *m = new Match(*tmpM);
+        matchesId.push_back(m);
+    }
+
+    League *tmpL = new League();
+    for (int i = 1; d->extractLeague(i, *tmpL); ++i)
+    {
+        League *l = new League(*tmpL);
+        leaguesId.push_back(l);
+    }
 }
 
 void MainWindow::createActions()
@@ -212,7 +236,10 @@ void MainWindow::displayLeagues()
 
 void MainWindow::addLeague()
 {
-    
+    // Create the add league widget
+    AddLeagueWidget *wdg = new AddLeagueWidget();
+    wdg->show();
+    wdg->setWindowModality(Qt::ApplicationModal);
 }
 
 void MainWindow::editLeague()

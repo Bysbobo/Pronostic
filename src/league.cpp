@@ -5,19 +5,38 @@
 ********************************************/
 
 #include "league.h"
-#include "dbmanager.h"
-#include <iostream>
 
-League::League(DbManager *dbMan)
+League::League()
 {
-	if (dbMan->isOpen())
-	{
-		std::cout << "League" << std::endl;
-		if (dbMan->extractLeague("1")) std::cout << "OK league" << std::endl;
-	}
+
 }
 
 League::~League()
+{
+
+}
+
+void League::setId(const int& id)
+{
+	aId = id;
+}
+
+void League::setName(const QString& name)
+{
+	aName = name;
+}
+
+void League::setArea(const QString& area)
+{
+	aArea = area;
+}
+
+void League::addAnOtherTeamId()
+{
+
+}
+
+void League::addAnOtherMatchId()
 {
 
 }

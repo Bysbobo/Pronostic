@@ -5,19 +5,50 @@
 ********************************************/
 
 #include "team.h"
-#include "dbmanager.h"
-#include <iostream>
 
-Team::Team(DbManager *dbMan)
+Team::Team()
 {
-	if (dbMan->isOpen())
-	{
-		std::cout << "Team" << std::endl;
-		if (dbMan->extractTeam("17")) std::cout << "OK team" << std::endl;
-	}
+	
 }
 
 Team::~Team()
 {
 
+}
+
+void Team::setId(const int& id)
+{
+	aId = id;
+}
+
+void Team::setSmallName(const QString& name)
+{
+	aSmallName = name;
+}
+
+void Team::setFullName(const QString& name)
+{
+	aFullName = name;
+}
+
+void Team::setLeagueIdList(const QString& leagueList)
+{
+	QString list = leagueList;
+
+	int max = list.count(",");
+	for (int i = 0; i <= max; ++i)
+	{
+		int separatorIndex = list.indexOf(","); // Find the first separator
+		aLeaguesId.push_back(list.left(separatorIndex).toInt()); // Extract data before separatorIndex
+		list.remove(0, separatorIndex+1); // Delete char already saved
+	}
+	/*
+	for (unsigned int i = 0; i < aLeaguesId.size(); ++i)
+		std::cout << aLeaguesId[i] << std::endl;
+	*/
+}
+
+void Team::addAnOtherMatchId(int match)
+{
+	//aMatchesId.push_back(match);
 }

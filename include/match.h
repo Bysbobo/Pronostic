@@ -8,20 +8,27 @@
 #define MATCH_H
 
 #include <QString>
-#include "dbmanager.h"
 
 class Match
 {
 public:
-	Match(DbManager *path = 0);
+	Match();
 	~Match();
 
+	void setId(const int& id);
+	void setLeagueId(const int& LeagueId);
+	void setHomeTeamName(const QString& homeTeamName);
+	void setAwayTeamName(const QString& awayTeamName);
+	void setHomeTeamScore(const int& homeTeamScore);
+	void setAwayTeamScore(const int& awayTeamScore);
+
 private:
+	int aId;
+	int aLeagueId;
 	QString aHomeTeamName;
 	QString aAwayTeamName;
 	int aHomeTeamScore;
 	int aAwayTeamScore;
-	int aLeagueId;
 };
 
 #endif // MATCH_H

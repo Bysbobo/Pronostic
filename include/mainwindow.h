@@ -13,6 +13,7 @@
 #include <QAction>
 #include <QApplication>
 #include <QObject>
+#include <vector>
 
 /**
  * @brief The MainWindow class defines the main window of the Prono application.
@@ -121,6 +122,8 @@ private:
      */
     void createMenus();
 
+    void updateBoms(DbManager *d);
+
     // DB Access
     /**
      * @brief aDbConnection : The open connection to DB.
@@ -226,6 +229,10 @@ private:
      * @brief apAboutAction : The about action.
      */
     QAction *apAboutAction;
+
+    std::vector<League*> leaguesId;
+    std::vector<Match*> matchesId;
+    std::vector<Team*> teamsId;
 };
 
 #endif // MAINWINDOW_H
