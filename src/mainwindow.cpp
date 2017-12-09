@@ -78,14 +78,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::updateBoms(DbManager *d)
 {
-    Team *tmpT   = new Team();
+    Team *tmpT = new Team();
     for (int i = 1; d->extractTeam(i, *tmpT); ++i)
     {
         Team *t = new Team(*tmpT);
         teamsId.push_back(t);
     }
 
-    Match *tmpM  = new Match();
+    Match *tmpM = new Match();
     for (int i = 1; d->extractMatch(i, *tmpM); ++i)
     {
         Match *m = new Match(*tmpM);
@@ -261,7 +261,10 @@ void MainWindow::displayTeams()
 
 void MainWindow::addTeam()
 {
-
+    // Create the add team widget
+    AddTeamWidget *wdg = new AddTeamWidget();
+    wdg->show();
+    wdg->setWindowModality(Qt::ApplicationModal);
 }
 
 void MainWindow::editTeam()
@@ -282,7 +285,10 @@ void MainWindow::displayMatches()
 
 void MainWindow::addMatch()
 {
-
+    // Create the add match widget
+    AddMatchWidget *wdg = new AddMatchWidget();
+    wdg->show();
+    wdg->setWindowModality(Qt::ApplicationModal);
 }
 
 void MainWindow::editMatch()
