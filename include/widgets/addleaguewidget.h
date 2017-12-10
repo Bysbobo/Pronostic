@@ -46,6 +46,15 @@ private:
     QLineEdit *apNameLineEdit;
 
     /**
+     * @brief apAreaLabel : The area label.
+     */
+    QLabel *apAreaLabel;
+    /**
+     * @brief apAreaLineEdit : The line edit in wich the name of the area should be inserted.
+     */
+    QLineEdit *apAreaLineEdit;
+
+    /**
      * @brief apCreateBtn : The button to create the new league.
      */
     QPushButton *apCreateBtn;

@@ -37,13 +37,22 @@ private:
     QGridLayout *apMainLayout;
 
     /**
-     * @brief apNameLabel : The name label.
+     * @brief apSmallNameLabel : The small name label.
      */
-    QLabel *apNameLabel;
+    QLabel *apSmallNameLabel;
     /**
-     * @brief apNameLineEdit : The line edit in wich the name of the team should be inserted.
+     * @brief apSmallNameLineEdit : The line edit in wich the small name of the team should be inserted.
      */
-    QLineEdit *apNameLineEdit;
+    QLineEdit *apSmallNameLineEdit;
+
+    /**
+     * @brief apFullNameLabel : The full name label.
+     */
+    QLabel *apFullNameLabel;
+    /**
+     * @brief apFullNameLineEdit : The line edit in wich the full name of the team should be inserted.
+     */
+    QLineEdit *apFullNameLineEdit;
 
     /**
      * @brief apCreateBtn : The button to create the new team.

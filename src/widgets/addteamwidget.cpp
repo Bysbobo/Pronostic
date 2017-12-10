@@ -11,9 +11,11 @@ AddTeamWidget::AddTeamWidget(QWidget *parent) : QWidget(parent)
     // Set the window title
     setWindowTitle(tr("Create Team"));
 
-    // Create the name label and line edit
-    apNameLabel = new QLabel(tr("Name :"));
-    apNameLineEdit = new QLineEdit();
+    // Create all label and their line edit
+    apSmallNameLabel = new QLabel(tr("Small name :"));
+    apSmallNameLineEdit = new QLineEdit();
+    apFullNameLabel = new QLabel(tr("Full name :"));
+    apFullNameLineEdit = new QLineEdit();
 
     // Create the buttons
     apCreateBtn = new QPushButton(tr("Create"));
@@ -23,18 +25,22 @@ AddTeamWidget::AddTeamWidget(QWidget *parent) : QWidget(parent)
 
     // Create the main layout
     apMainLayout = new QGridLayout();
-    apMainLayout->addWidget(apNameLabel,    0, 0);
-    apMainLayout->addWidget(apNameLineEdit, 0, 1, 1, 2);
-    apMainLayout->addWidget(apCancelBtn,    1, 1, 1, 1, Qt::AlignRight);
-    apMainLayout->addWidget(apCreateBtn,    1, 2, 1, 1, Qt::AlignRight);
+    apMainLayout->addWidget(apSmallNameLabel,    0, 0);
+    apMainLayout->addWidget(apSmallNameLineEdit, 0, 1, 1, 2);
+    apMainLayout->addWidget(apFullNameLabel,     1, 0);
+    apMainLayout->addWidget(apFullNameLineEdit,  1, 1, 1, 2);
+    apMainLayout->addWidget(apCancelBtn,         2, 1, 1, 1, Qt::AlignRight);
+    apMainLayout->addWidget(apCreateBtn,         2, 2, 1, 1, Qt::AlignRight);
     setLayout(apMainLayout);
 }
 
 AddTeamWidget::~AddTeamWidget()
 {
     delete apMainLayout;
-    delete apNameLabel;
-    delete apNameLineEdit;
+    delete apSmallNameLabel;
+    delete apSmallNameLineEdit;
+    delete apFullNameLabel;
+    delete apFullNameLineEdit;
     delete apCreateBtn;
     delete apCancelBtn;
 }

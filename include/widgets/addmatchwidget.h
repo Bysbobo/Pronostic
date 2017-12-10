@@ -46,6 +46,51 @@ private:
     QLineEdit *apNameLineEdit;
 
     /**
+     * @brief apLeagueIdLabel : The league id label.
+     */
+    QLabel *apLeagueIdLabel;
+    /**
+     * @brief apLeagueIdLineEdit : The line edit in wich the league id of the match should be inserted.
+     */
+    QLineEdit *apLeagueIdLineEdit;
+
+    /**
+     * @brief apHomeTeamNameLabel : The hometeam name label.
+     */
+    QLabel *apHomeTeamNameLabel;
+    /**
+     * @brief apHomeTeamNameLineEdit : The line edit in wich the hometeam name of the match should be inserted.
+     */
+    QLineEdit *apHomeTeamNameLineEdit;
+
+    /**
+     * @brief apAwayTeamNameLabel : The awayteam name label.
+     */
+    QLabel *apAwayTeamNameLabel;
+    /**
+     * @brief apAwayTeamNameLineEdit : The line edit in wich the awayteam name of the match should be inserted.
+     */
+    QLineEdit *apAwayTeamNameLineEdit;
+
+    /**
+     * @brief apHomeTeamScoreLabel : The hometeam score label.
+     */
+    QLabel *apHomeTeamScoreLabel;
+    /**
+     * @brief apHomeTeamScoreLineEdit : The line edit in wich the hometeam score of the match should be inserted.
+     */
+    QLineEdit *apHomeTeamScoreLineEdit;
+
+    /**
+     * @brief apAwayTeamScoreLabel : The awayteam name label.
+     */
+    QLabel *apAwayTeamScoreLabel;
+    /**
+     * @brief apAwayTeamScoreLineEdit : The line edit in wich the awayteam name of the match should be inserted.
+     */
+    QLineEdit *apAwayTeamScoreLineEdit;
+
+    /**
      * @brief apCreateBtn : The button to create the new match.
      */
     QPushButton *apCreateBtn;
