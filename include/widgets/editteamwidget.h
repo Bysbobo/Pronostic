@@ -1,46 +1,66 @@
 /********************************************
-    * File Name :   "editteamwidget.cpp"
+    * File Name :   "editteamwidget.h"
     * Authors :     P. Boix and E. Moussy
     * Created on :  10/12/2017
 ********************************************/
 
-#include "widgets/editteamwidget.h"
+#ifndef EDITTEAMWIDGET_H
+#define EDITTEAMWIDGET_H
 
-EditTeamWidget::EditTeamWidget(QWidget *parent) : QWidget(parent)
+#include <QWidget>
+#include <QLabel>
+#include <QLineEdit>
+#include <QPushButton>
+#include <QGridLayout>
+
+/**
+ * @brief The EditTeamWidget class is a widget allowing to create a new team.
+ */
+class EditTeamWidget : public QWidget
 {
-    // Set the window title
-    setWindowTitle(tr("Create Team"));
+public:
+	/**
+     * @brief Constructor of the EditTeamWidget class.
+     * @param parent : The parent item of the widget.
+     */
+	explicit EditTeamWidget(QWidget *parent = 0);
+	/**
+     * @brief Destructor.
+     */
+	~EditTeamWidget();
 
-    // Create all label and their line edit
-    apSmallNameLabel = new QLabel(tr("Small name :"));
-    apSmallNameLineEdit = new QLineEdit();
-    apFullNameLabel = new QLabel(tr("Full name :"));
-    apFullNameLineEdit = new QLineEdit();
+private:
+	/**
+     * @brief apMainLayout : The main layout of the widget.
+     */
+    QGridLayout *apMainLayout;
 
-    // Create the buttons
-    apCreateBtn = new QPushButton(tr("Create"));
-    //connect(apCreateBtn, SIGNAL(pressed()), this, SLOT(createBtnPressed()));
-    apCancelBtn = new QPushButton(tr("Cancel"));
-    connect(apCancelBtn, SIGNAL(pressed()), this, SLOT(close()));
+    /**
+     * @brief apSmallNameLabel : The small name label.
+     */
+    QLabel *apSmallNameLabel;
+    /**
+     * @brief apSmallNameLineEdit : The line edit in wich the small name of the team should be inserted.
+     */
+    QLineEdit *apSmallNameLineEdit;
 
-    // Create the main layout
-    apMainLayout = new QGridLayout();
-    apMainLayout->addWidget(apSmallNameLabel,    0, 0);
-    apMainLayout->addWidget(apSmallNameLineEdit, 0, 1, 1, 2);
-    apMainLayout->addWidget(apFullNameLabel,     1, 0);
-    apMainLayout->addWidget(apFullNameLineEdit,  1, 1, 1, 2);
-    apMainLayout->addWidget(apCancelBtn,         2, 1, 1, 1, Qt::AlignRight);
-    apMainLayout->addWidget(apCreateBtn,         2, 2, 1, 1, Qt::AlignRight);
-    setLayout(apMainLayout);
-}
+    /**
+     * @brief apFullNameLabel : The full name label.
+     */
+    QLabel *apFullNameLabel;
+    /**
+     * @brief apFullNameLineEdit : The line edit in wich the full name of the team should be inserted.
+     */
+    QLineEdit *apFullNameLineEdit;
 
-EditTeamWidget::~EditTeamWidget()
-{
-    delete apMainLayout;
-    delete apSmallNameLabel;
-    delete apSmallNameLineEdit;
-    delete apFullNameLabel;
-    delete apFullNameLineEdit;
-    delete apCreateBtn;
-    delete apCancelBtn;
-}
+    /**
+     * @brief apCreateBtn : The button to create the new team.
+     */
+    QPushButton *apCreateBtn;
+    /**
+     * @brief apCancelBtn : The buton to cancel the creation of the new team.
+     */
+    QPushButton *apCancelBtn;
+};
+
+#endif // EDITTEAMWIDGET_H
