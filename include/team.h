@@ -21,7 +21,7 @@ public:
 	void setFullName(const QString& name);
 	void setLeagueIdList(const QString& leagueList);
 
-	void addAnOtherMatchId(int match);
+	void addAnOtherMatchId();
 private:
 	int aId;
 	QString aSmallName;

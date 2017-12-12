@@ -82,21 +82,21 @@ void MainWindow::updateBoms(DbManager *d)
     for (int i = 1; d->extractTeam(i, *tmpT); ++i)
     {
         Team *t = new Team(*tmpT);
-        teamsId.push_back(t);
+        aTeamsId.push_back(t);
     }
 
     Match *tmpM = new Match();
     for (int i = 1; d->extractMatch(i, *tmpM); ++i)
     {
         Match *m = new Match(*tmpM);
-        matchesId.push_back(m);
+        aMatchesId.push_back(m);
     }
 
     League *tmpL = new League();
     for (int i = 1; d->extractLeague(i, *tmpL); ++i)
     {
         League *l = new League(*tmpL);
-        leaguesId.push_back(l);
+        aLeaguesId.push_back(l);
     }
 }
 

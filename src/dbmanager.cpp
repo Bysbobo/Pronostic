@@ -34,12 +34,12 @@ DbManager::~DbManager()
     }
 }
 
-bool DbManager::isOpen()
+bool DbManager::isOpen() const
 {
     return aDb.isOpen();
 }
 
-bool DbManager::displayTeams()
+bool DbManager::displayTeams() const
 {
     QSqlQuery query;
     query.prepare("SELECT * FROM team;");
@@ -93,7 +93,7 @@ bool DbManager::extractTeam(const int& teamId, Team& t)
     return false;
 }
 
-bool DbManager::displayMatches()
+bool DbManager::displayMatches() const
 {
     QSqlQuery query;
     query.prepare("SELECT * FROM match;");
@@ -157,7 +157,7 @@ bool DbManager::extractMatch(const int& matchId, Match& m)
     return false;
 }
 
-bool DbManager::displayLeagues()
+bool DbManager::displayLeagues() const
 {
     QSqlQuery query;
     query.prepare("SELECT * FROM league;");

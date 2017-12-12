@@ -121,7 +121,10 @@ private:
      * @brief This method creates the menus. It should be called after the createActions() method.
      */
     void createMenus();
-
+    /**
+     * @brief This method updates objects information.
+     * @param d : The link to the database connection.
+     */
     void updateBoms(DbManager *d);
 
     // DB Access
@@ -230,9 +233,9 @@ private:
      */
     QAction *apAboutAction;
 
-    std::vector<League*> leaguesId;
-    std::vector<Match*> matchesId;
-    std::vector<Team*> teamsId;
+    std::vector<League*> aLeaguesId;
+    std::vector<Match*> aMatchesId;
+    std::vector<Team*> aTeamsId;
 };
 
 #endif // MAINWINDOW_H

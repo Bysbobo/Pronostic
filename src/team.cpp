@@ -48,7 +48,7 @@ void Team::setLeagueIdList(const QString& leagueList)
 	*/
 }
 
-void Team::addAnOtherMatchId(int match)
+void Team::addAnOtherMatchId()
 {
 	
 }

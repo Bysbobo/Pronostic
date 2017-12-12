@@ -30,11 +30,11 @@ public:
 	/**
      * @brief This method is used to check if database connection is correct.
      */
-	bool isOpen();
+	bool isOpen() const;
 	/**
      * @brief This method is used to display all teams from the database.
      */
-	bool displayTeams();
+	bool displayTeams() const;
 	/**
      * @brief This method is used to extract teams information from database.
      * @param team : The required team.
@@ -43,7 +43,7 @@ public:
 	/**
      * @brief This method is used to display all matches from the database.
      */
-	bool displayMatches();
+	bool displayMatches() const;
 	/**
      * @brief This method is used to extract matches information from database.
      * @param match : The required match.
@@ -52,7 +52,7 @@ public:
 	/**
      * @brief This method is used to display all leagues from the database.
      */
-	bool displayLeagues();
+	bool displayLeagues() const;
 	/**
      * @brief This method is used to extract leagues information from database.
      * @param league : The required league.
