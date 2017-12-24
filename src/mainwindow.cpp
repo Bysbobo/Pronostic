@@ -8,6 +8,7 @@
 #include "team.h"
 #include "match.h"
 #include "league.h"
+#include "singleton.h"
 #include "widgets/addleaguewidget.h"
 #include "widgets/addmatchwidget.h"
 #include "widgets/addteamwidget.h"
@@ -31,6 +32,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     // Update boms from database
     updateBoms(apDbConnection);
+
+    // Test of Singleton existency
+    {
+        Singleton *p, *q;
+
+        p = Singleton::getInstance();
+        q = Singleton::getInstance();
+
+        p->kill();
+        q->kill();
+    }
 
     // Show the status bar
     statusBar()->showMessage(tr("Ready"), 2000);
