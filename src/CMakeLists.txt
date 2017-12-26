@@ -10,4 +10,3 @@ ADD_EXECUTABLE(Pronostic dbmanager.cpp mainwindow.cpp main.cpp ${Pronostic_SRC})
 
 # Link the executable to the libraries
 TARGET_LINK_LIBRARIES(Pronostic ${Qt5Widgets_LIBRARIES} ${Qt5Sql_LIBRARIES})
-#t5_use_modules(Pronostic Widgets)
