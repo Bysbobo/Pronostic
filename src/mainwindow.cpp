@@ -5,12 +5,17 @@
 ********************************************/
 
 #include "mainwindow.h"
-#include "dbmanager.h"
+#include "team.h"
+#include "match.h"
+#include "league.h"
+#include "widgets/addleaguewidget.h"
+#include "widgets/addmatchwidget.h"
+#include "widgets/addteamwidget.h"
 #include <QMenuBar>
 #include <QStatusBar>
+#include <QDebug>
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     // Set window properties
     setWindowTitle(tr("Prono"));
@@ -21,12 +26,14 @@ MainWindow::MainWindow(QWidget *parent)
     createActions();
     createMenus();
 
+    // Create the DB connection
+    apDbConnection = new DbManager(ROOTTODB);
+
+    // Update boms from database
+    updateBoms(apDbConnection);
+
     // Show the status bar
     statusBar()->showMessage(tr("Ready"), 2000);
-
-    // DB Gestionning
-    DbManager db(ROOTTODB);
-    
 }
 
 MainWindow::~MainWindow()
@@ -38,16 +45,19 @@ MainWindow::~MainWindow()
     delete apExitAction;
 
     // League actions
+    delete apReadLeagueAction;
     delete apAddLeagueAction;
     delete apEditLeagueAction;
     delete apDeleteLeagueAction;
 
     // Team actions
+    delete apReadTeamAction;
     delete apAddTeamAction;
     delete apEditTeamAction;
     delete apDeleteTeamAction;
 
     // Match actions
+    delete apReadMatchAction;
     delete apAddMatchAction;
     delete apEditMatchAction;
     delete apDeleteMatchAction;
@@ -61,6 +71,33 @@ MainWindow::~MainWindow()
     delete apTeamMenu;
     delete apMatchMenu;
     delete apHelpMenu;
+
+    // DB Connection
+    delete apDbConnection;
+}
+
+void MainWindow::updateBoms(DbManager *d)
+{
+    Team *tmpT = new Team();
+    for (int i = 1; d->extractTeam(i, *tmpT); ++i)
+    {
+        Team *t = new Team(*tmpT);
+        aTeamsId.push_back(t);
+    }
+
+    Match *tmpM = new Match();
+    for (int i = 1; d->extractMatch(i, *tmpM); ++i)
+    {
+        Match *m = new Match(*tmpM);
+        aMatchesId.push_back(m);
+    }
+
+    League *tmpL = new League();
+    for (int i = 1; d->extractLeague(i, *tmpL); ++i)
+    {
+        League *l = new League(*tmpL);
+        aLeaguesId.push_back(l);
+    }
 }
 
 void MainWindow::createActions()
@@ -87,6 +124,9 @@ void MainWindow::createActions()
     QObject::connect(apExitAction, SIGNAL(triggered(bool)), this, SLOT(exit()));
 
     // League Menu Actions
+    apReadLeagueAction = new QAction(tr("Display all the leagues"), this);
+    QObject::connect(apReadLeagueAction, SIGNAL(triggered(bool)), this, SLOT(displayLeagues()));
+
     apAddLeagueAction = new QAction(tr("Add League..."), this);
     apAddLeagueAction->setStatusTip(tr("Create a new league"));
     QObject::connect(apAddLeagueAction, SIGNAL(triggered(bool)), this, SLOT(addLeague()));
@@ -100,6 +140,9 @@ void MainWindow::createActions()
     QObject::connect(apDeleteLeagueAction, SIGNAL(triggered(bool)), this, SLOT(deleteLeague()));
 
     // Team actions
+    apReadTeamAction = new QAction(tr("Display all the teams"), this);
+    QObject::connect(apReadTeamAction, SIGNAL(triggered(bool)), this, SLOT(displayTeams()));
+
     apAddTeamAction = new QAction(tr("Add Team..."), this);
     apAddTeamAction->setStatusTip(tr("Create a new team"));
     QObject::connect(apAddTeamAction, SIGNAL(triggered(bool)), this, SLOT(addTeam()));
@@ -113,6 +156,9 @@ void MainWindow::createActions()
     QObject::connect(apDeleteTeamAction, SIGNAL(triggered(bool)), this, SLOT(deleteTeam()));
 
     // Match actions
+    apReadMatchAction = new QAction(tr("Display all the matches"), this);
+    QObject::connect(apReadMatchAction, SIGNAL(triggered(bool)), this, SLOT(displayMatches()));
+
     apAddMatchAction = new QAction(tr("Add Match..."), this);
     apAddMatchAction->setStatusTip(tr("Create a new match"));
     QObject::connect(apAddMatchAction, SIGNAL(triggered(bool)), this, SLOT(addMatch()));
@@ -144,18 +190,21 @@ void MainWindow::createMenus()
 
     // League Menu
     apLeagueMenu = menuBar()->addMenu(tr("League"));
+    apLeagueMenu->addAction(apReadLeagueAction);
     apLeagueMenu->addAction(apAddLeagueAction);
     apLeagueMenu->addAction(apEditLeagueAction);
     apLeagueMenu->addAction(apDeleteLeagueAction);
 
     // Team Menu
     apTeamMenu = menuBar()->addMenu(tr("Team"));
+    apTeamMenu->addAction(apReadTeamAction);
     apTeamMenu->addAction(apAddTeamAction);
     apTeamMenu->addAction(apEditTeamAction);
     apTeamMenu->addAction(apDeleteTeamAction);
 
     // Match Menu
     apMatchMenu = menuBar()->addMenu(tr("Match"));
+    apMatchMenu->addAction(apReadMatchAction);
     apMatchMenu->addAction(apAddMatchAction);
     apMatchMenu->addAction(apEditMatchAction);
     apMatchMenu->addAction(apDeleteMatchAction);
@@ -180,9 +229,18 @@ void MainWindow::saveAs()
 
 }
 
+void MainWindow::displayLeagues()
+{
+    if (apDbConnection->isOpen())
+        apDbConnection->displayLeagues();
+}
+
 void MainWindow::addLeague()
 {
-
+    // Create the add league widget
+    AddLeagueWidget *wdg = new AddLeagueWidget();
+    wdg->show();
+    wdg->setWindowModality(Qt::ApplicationModal);
 }
 
 void MainWindow::editLeague()
@@ -195,9 +253,18 @@ void MainWindow::deleteLeague()
 
 }
 
+void MainWindow::displayTeams()
+{
+    if (apDbConnection->isOpen())
+        apDbConnection->displayTeams();
+}
+
 void MainWindow::addTeam()
 {
-
+    // Create the add team widget
+    AddTeamWidget *wdg = new AddTeamWidget();
+    wdg->show();
+    wdg->setWindowModality(Qt::ApplicationModal);
 }
 
 void MainWindow::editTeam()
@@ -210,9 +277,18 @@ void MainWindow::deleteTeam()
 
 }
 
+void MainWindow::displayMatches()
+{
+    if (apDbConnection->isOpen())
+        apDbConnection->displayMatches();
+}
+
 void MainWindow::addMatch()
 {
-
+    // Create the add match widget
+    AddMatchWidget *wdg = new AddMatchWidget();
+    wdg->show();
+    wdg->setWindowModality(Qt::ApplicationModal);
 }
 
 void MainWindow::editMatch()
