@@ -22,7 +22,6 @@ ADD_EXECUTABLE(Pronostic widgets/editteamwidget.cpp
                          widgets/addteamwidget.cpp
                          widgets/addmatchwidget.cpp
                          widgets/addleaguewidget.cpp
-                         singleton.cpp
                          team.cpp
                          match.cpp
                          league.cpp
