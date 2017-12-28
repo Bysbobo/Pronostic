@@ -8,29 +8,43 @@
 #define SINGLETON_H
 
 #include <iostream>
+#include "QString"
 
-//template <typename T>
+template <typename T>
 class Singleton
 {
-private:
+protected:
 	Singleton() {};
 	~Singleton() {};
-	Singleton(const Singleton&) = delete;
-	Singleton& operator=(const Singleton&) = delete;
+	Singleton(const T&) = delete;
+	T& operator=(const T&) = delete;
 
 
 public:
-	static Singleton* getInstance()
+	static T* getInstance()
 	{
 		if (apInstance == NULL)
 		{
 			std::cout << "Creating singleton" << std::endl;
-			apInstance = new Singleton();
+			apInstance = new T();
 		}
 		else
 			std::cout << "Singleton already created..." << std::endl;
 
-		return apInstance;
+		return (static_cast<T*>(apInstance));
+	}
+
+	static T* getInstance(const QString& path)
+	{
+		if (apInstance == NULL)
+		{
+			std::cout << "Creating singleton" << std::endl;
+			apInstance = new T(path);
+		}
+		else
+			std::cout << "Singleton already created..." << std::endl;
+
+		return (static_cast<T*>(apInstance));
 	}
 	
 	static void kill()
@@ -46,9 +60,10 @@ public:
 
 
 private:
-	static Singleton* apInstance;
+	static T* apInstance;
 };
 
-Singleton* Singleton::apInstance = NULL;
+template <typename T>
+T* Singleton<T>::apInstance = NULL;
 
 #endif // SINGLETON_H

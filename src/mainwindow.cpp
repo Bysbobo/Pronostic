@@ -28,21 +28,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     createMenus();
 
     // Create the DB connection
-    apDbConnection = new DbManager(ROOTTODB);
+    apDbConnection = DbManager::getInstance(ROOTTODB);
 
     // Update boms from database
     updateBoms(apDbConnection);
-
-    // Test of Singleton existency
-    {
-        Singleton *p, *q;
-
-        p = Singleton::getInstance();
-        q = Singleton::getInstance();
-
-        p->kill();
-        q->kill();
-    }
 
     // Show the status bar
     statusBar()->showMessage(tr("Ready"), 2000);
@@ -85,7 +74,7 @@ MainWindow::~MainWindow()
     delete apHelpMenu;
 
     // DB Connection
-    delete apDbConnection;
+    apDbConnection->kill();
 }
 
 void MainWindow::updateBoms(DbManager *d)
