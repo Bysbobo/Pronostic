@@ -231,8 +231,10 @@ void MainWindow::saveAs()
 
 void MainWindow::displayLeagues()
 {
-    if (apDbConnection->isOpen())
-        apDbConnection->displayLeagues();
+    for (unsigned int i = 0; i < aLeaguesId.size(); ++i)
+    {
+        aLeaguesId[i]->displayAll();
+    }
 }
 
 void MainWindow::addLeague()
@@ -255,8 +257,10 @@ void MainWindow::deleteLeague()
 
 void MainWindow::displayTeams()
 {
-    if (apDbConnection->isOpen())
-        apDbConnection->displayTeams();
+    for (unsigned int i = 0; i < aTeamsId.size(); ++i)
+    {
+        aTeamsId[i]->displayAll();
+    }
 }
 
 void MainWindow::addTeam()
@@ -279,8 +283,10 @@ void MainWindow::deleteTeam()
 
 void MainWindow::displayMatches()
 {
-    if (apDbConnection->isOpen())
-        apDbConnection->displayMatches();
+    for (unsigned int i = 0; i < aMatchesId.size(); ++i)
+    {
+        aMatchesId[i]->displayAll();
+    }
 }
 
 void MainWindow::addMatch()

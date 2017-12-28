@@ -16,6 +16,8 @@ public:
 	Team();
 	~Team();
 
+	void displayAll() const;
+	
 	void setId(const int& id);
 	void setSmallName(const QString& name);
 	void setFullName(const QString& name);

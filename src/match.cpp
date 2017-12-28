@@ -4,6 +4,7 @@
     * Created on :  04/12/2017
 ********************************************/
 
+#include <iostream>
 #include "match.h"
 
 Match::Match()
@@ -14,6 +15,16 @@ Match::Match()
 Match::~Match()
 {
 
+}
+
+void Match::displayAll() const
+{
+	std::cout << aId << " - "
+			  << aLeagueId << " - "
+			  << aHomeTeamName.toStdString() << " - "
+			  << aAwayTeamName.toStdString() << " - "
+			  << aHomeTeamScore << " - "
+			  << aAwayTeamScore << std::endl;
 }
 
 void Match::setId(const int& id)

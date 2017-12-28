@@ -4,6 +4,7 @@
     * Created on :  04/12/2017
 ********************************************/
 
+#include <iostream>
 #include "team.h"
 
 Team::Team()
@@ -14,6 +15,13 @@ Team::Team()
 Team::~Team()
 {
 
+}
+
+void Team::displayAll() const
+{
+	std::cout << aId << " - "
+			  << aSmallName.toStdString() << " - "
+			  << aFullName.toStdString() << std::endl;
 }
 
 void Team::setId(const int& id)
