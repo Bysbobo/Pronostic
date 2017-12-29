@@ -127,6 +127,9 @@ private:
      */
     void updateBoms(DbManager *d);
 
+    // To be deleted
+    bool Oos(const std::string& path);
+
     // DB Access
     /**
      * @brief aDbConnection : The open connection to DB.

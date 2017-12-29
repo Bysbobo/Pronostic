@@ -15,6 +15,9 @@
 #include <QStatusBar>
 #include <QDebug>
 
+#include <iostream>
+#include <fstream>
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
     // Set window properties
@@ -31,6 +34,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     // Update boms from database
     updateBoms(apDbConnection);
+
+    // Out of scope - Just to fill matches DB
+    if( !Oos(ROOTTOMATCHES) )
+        std::cout << "Aaaaaaaarf" << std::endl;
 
     // Show the status bar
     statusBar()->showMessage(tr("Ready"), 2000);
@@ -98,6 +105,30 @@ void MainWindow::updateBoms(DbManager *d)
         League *l = new League(*tmpL);
         aLeaguesId.push_back(l);
     }
+}
+
+bool MainWindow::Oos(const std::string& path)
+{
+    // Read and stock all clubs
+    std::ifstream matchFlow(path.c_str());
+    if (!matchFlow)
+    {
+        std::cerr << "Failed to open Matchs.txt for reading!" << std::endl;
+        return false;
+    }
+
+    // Ici!!
+
+    matchFlow.close();
+
+    return true;
+
+    /*
+    for (unsigned int i = 1; i < aMatchesId.size(); ++i)
+    {
+        
+    }
+    */
 }
 
 void MainWindow::createActions()

@@ -33,6 +33,7 @@ ENABLE_TESTING()
 
 # Add the definitions for the resource files
 ADD_DEFINITIONS(-DROOTTODB=\"${Pronostic_SOURCE_DIR}/resource/pronostic.sqlite\")
+ADD_DEFINITIONS(-DROOTTOMATCHES=\"${Pronostic_SOURCE_DIR}/resource/Matchs.txt\")
 
 # Add the definitions for QT5 Widgets module
 ADD_DEFINITIONS(${Qt5Widgets_DEFINITIONS})
