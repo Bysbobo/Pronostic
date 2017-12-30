@@ -157,6 +157,23 @@ bool DbManager::extractMatch(const int& matchId, Match& m)
     return false;
 }
 
+bool DbManager::fillMatch(const int& id,
+                          const int& hTName,
+                          const int& aTName,
+                          const int& hTScore,
+                          const int& aTScore)
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO match (id, home_team_id, away_team_id, league_id, home_team_score, away_team_score) VALUES ((:id), (:hTName), (:aTName), '1', (:hTScore), (:aTScore));");
+    query.bindValue(":id",      QVariant(id));
+    query.bindValue(":hTName",  QVariant(hTName));
+    query.bindValue(":aTName",  QVariant(aTName));
+    query.bindValue(":hTScore", QVariant(hTScore));
+    query.bindValue(":aTScore", QVariant(aTScore));
+
+    return query.exec();
+}
+
 bool DbManager::displayLeagues() const
 {
     QSqlQuery query;

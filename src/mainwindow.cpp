@@ -17,6 +17,11 @@
 
 #include <iostream>
 #include <fstream>
+#include <sstream>
+#include <string>
+#include <cstdlib>
+#include <algorithm>
+#include <iomanip>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -34,11 +39,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     // Update boms from database
     updateBoms(apDbConnection);
-
+/*
     // Out of scope - Just to fill matches DB
-    if( !Oos(ROOTTOMATCHES) )
+    if( !refillMatchFromSaveFileToDatabase(ROOTTOMATCHES) )
         std::cout << "Aaaaaaaarf" << std::endl;
-
+*/
     // Show the status bar
     statusBar()->showMessage(tr("Ready"), 2000);
 }
@@ -107,17 +112,72 @@ void MainWindow::updateBoms(DbManager *d)
     }
 }
 
-bool MainWindow::Oos(const std::string& path)
+bool MainWindow::refillMatchFromSaveFileToDatabase(const std::string& path)
 {
     // Read and stock all clubs
-    std::ifstream matchFlow(path.c_str());
+    std::ifstream matchFlow(path.c_str(), std::ios::in);
     if (!matchFlow)
     {
         std::cerr << "Failed to open Matchs.txt for reading!" << std::endl;
         return false;
     }
 
-    // Ici!!
+    int firstScore, secondScore;
+    std::string firstTeam, secondTeam;
+    int ind1(1), ind2(1);
+
+    std::string line;
+    while (getline(matchFlow, line, '\n'))
+    {
+        std::istringstream iss(line);
+        std::string aString;
+        int count(-1);
+        while (getline(iss, aString, '/'))
+        {
+            count++;
+            if (count == 0)
+                continue;
+
+            if (count == 1)
+                continue;
+
+            switch (count % 4)
+            {
+                case 2:
+                    firstTeam   =  aString; break;
+                case 3:
+                    firstScore  = atoi(aString.c_str()); break;
+                case 0:
+                    secondScore = atoi(aString.c_str()); break;
+                case 1:
+                    secondTeam  =  aString; break;
+            }
+
+            if ((count % 4) == 1)
+            {
+                unsigned int firstTeamInd, secondTeamInd;
+                for (unsigned int i = 0; i < aTeamsId.size(); ++i)
+                {
+                    if (aTeamsId[i]->getSmallName().toStdString() == firstTeam)
+                        firstTeamInd = i+1;
+                    else if (aTeamsId[i]->getSmallName().toStdString() == secondTeam)
+                        secondTeamInd = i+1;
+                }
+
+                std::cout << std::setw(3) << ind1++ << " :"
+                          << std::setw(4) << firstTeam << " (" << std::setw(2) << firstTeamInd;
+                std::cout << ") - ";
+                std::cout << std::setw(4) << secondTeam << " (" << std::setw(2) << secondTeamInd;
+                std::cout << ") / " << firstScore << " - " << secondScore << std::endl; 
+            
+                if (apDbConnection->isOpen())
+                {
+                    if (!apDbConnection->fillMatch(ind2++, firstTeamInd, secondTeamInd, firstScore, secondScore))
+                        std::cout << "Oups..." << std::endl;
+                }
+            }
+        }
+    }
 
     matchFlow.close();
 

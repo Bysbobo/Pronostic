@@ -49,6 +49,12 @@ public:
      * @param match : The required match.
      */
 	bool extractMatch(const int& matchId, Match& m);
+
+    bool fillMatch(const int& id,
+                   const int& hTName,
+                   const int& aTName,
+                   const int& hTScore,
+                   const int& aTScore);
 	/**
      * @brief This method is used to display all leagues from the database.
      */

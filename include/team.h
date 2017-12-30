@@ -18,6 +18,9 @@ public:
 
 	void displayAll() const;
 	
+	int getId() const;
+	QString getSmallName() const;
+
 	void setId(const int& id);
 	void setSmallName(const QString& name);
 	void setFullName(const QString& name);

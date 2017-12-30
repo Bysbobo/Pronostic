@@ -20,9 +20,9 @@ Match::~Match()
 void Match::displayAll() const
 {
 	std::cout << aId << " - "
-			  << aLeagueId << " - "
 			  << aHomeTeamName.toStdString() << " - "
 			  << aAwayTeamName.toStdString() << " - "
+			  << aLeagueId << " - "
 			  << aHomeTeamScore << " - "
 			  << aAwayTeamScore << std::endl;
 }

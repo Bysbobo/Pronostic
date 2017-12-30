@@ -128,7 +128,7 @@ private:
     void updateBoms(DbManager *d);
 
     // To be deleted
-    bool Oos(const std::string& path);
+    bool refillMatchFromSaveFileToDatabase(const std::string& path);
 
     // DB Access
     /**
