@@ -4,7 +4,7 @@
     * Created on :  04/12/2017
 ********************************************/
 
-#include <iostream>
+#include <QDebug>
 #include "match.h"
 
 Match::Match()
@@ -19,12 +19,12 @@ Match::~Match()
 
 void Match::displayAll() const
 {
-	std::cout << aId << " - "
-			  << aHomeTeamName.toStdString() << " - "
-			  << aAwayTeamName.toStdString() << " - "
-			  << aLeagueId << " - "
-			  << aHomeTeamScore << " - "
-			  << aAwayTeamScore << std::endl;
+	qDebug() << aId << " - "
+			 << aLeagueId << " - "
+			 << aHomeTeamName << " - "
+			 << aAwayTeamName << " - "
+			 << aHomeTeamScore << " - "
+			 << aAwayTeamScore;
 }
 
 void Match::setId(const int& id)
