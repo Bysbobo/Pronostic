@@ -7,8 +7,7 @@
 #ifndef SINGLETON_H
 #define SINGLETON_H
 
-#include <iostream>
-#include "QString"
+#include <QString>
 
 template <typename T>
 class Singleton
@@ -24,11 +23,11 @@ public:
 	{
 		if (apInstance == NULL)
 		{
-			std::cout << "Creating singleton" << std::endl;
+			qDebug() << "Creating singleton";
 			apInstance = new T();
 		}
 		else
-			std::cout << "Singleton already created..." << std::endl;
+			qDebug() << "Singleton already created...";
 
 		return (static_cast<T*>(apInstance));
 	}
@@ -37,11 +36,11 @@ public:
 	{
 		if (apInstance == NULL)
 		{
-			std::cout << "Creating singleton" << std::endl;
+			qDebug() << "Creating singleton";
 			apInstance = new T(path);
 		}
 		else
-			std::cout << "Singleton already created..." << std::endl;
+			qDebug() << "Singleton already created...";
 
 		return (static_cast<T*>(apInstance));
 	}
@@ -53,7 +52,7 @@ public:
 			delete apInstance;
 			apInstance = NULL;
 
-			std::cout << "Singleton deleted..." << std::endl;
+			qDebug() << "Singleton deleted...";
 		}
 	}
 

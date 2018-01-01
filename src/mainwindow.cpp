@@ -112,13 +112,13 @@ void MainWindow::updateBoms(DbManager *d)
     }
 }
 
-bool MainWindow::refillMatchFromSaveFileToDatabase(const std::string& path)
+bool MainWindow::refillMatchFromSaveFileToDatabase(const QString& path)
 {
     // Read and stock all clubs
-    std::ifstream matchFlow(path.c_str(), std::ios::in);
+    std::ifstream matchFlow(path.toStdString().c_str(), std::ios::in);
     if (!matchFlow)
     {
-        std::cerr << "Failed to open Matchs.txt for reading!" << std::endl;
+        qWarning() << "Failed to open Matchs.txt for reading!";
         return false;
     }
 
@@ -156,7 +156,8 @@ bool MainWindow::refillMatchFromSaveFileToDatabase(const std::string& path)
             if ((count % 4) == 1)
             {
                 unsigned int firstTeamInd, secondTeamInd;
-                for (unsigned int i = 0; i < aTeamsId.size(); ++i)
+                long unsigned int teamSize = aTeamsId.size();
+                for (unsigned int i = 0; i < teamSize; ++i)
                 {
                     if (aTeamsId[i]->getSmallName().toStdString() == firstTeam)
                         firstTeamInd = i+1;
@@ -182,13 +183,6 @@ bool MainWindow::refillMatchFromSaveFileToDatabase(const std::string& path)
     matchFlow.close();
 
     return true;
-
-    /*
-    for (unsigned int i = 1; i < aMatchesId.size(); ++i)
-    {
-        
-    }
-    */
 }
 
 void MainWindow::createActions()
