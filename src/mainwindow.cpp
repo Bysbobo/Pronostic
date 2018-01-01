@@ -231,10 +231,9 @@ void MainWindow::saveAs()
 
 void MainWindow::displayLeagues()
 {
-    for (unsigned int i = 0; i < aLeaguesId.size(); ++i)
-    {
+    const long unsigned int leagueSize = aLeaguesId.size();
+    for (unsigned int i = 0; i < leagueSize; ++i)
         aLeaguesId[i]->displayAll();
-    }
 }
 
 void MainWindow::addLeague()
@@ -257,10 +256,9 @@ void MainWindow::deleteLeague()
 
 void MainWindow::displayTeams()
 {
-    for (unsigned int i = 0; i < aTeamsId.size(); ++i)
-    {
+    const long unsigned int teamSize = aTeamsId.size();
+    for (unsigned int i = 0; i < teamSize; ++i)
         aTeamsId[i]->displayAll();
-    }
 }
 
 void MainWindow::addTeam()
@@ -283,10 +281,9 @@ void MainWindow::deleteTeam()
 
 void MainWindow::displayMatches()
 {
-    for (unsigned int i = 0; i < aMatchesId.size(); ++i)
-    {
+    const long unsigned int matchSize = aMatchesId.size();
+    for (unsigned int i = 0; i < matchSize; ++i)
         aMatchesId[i]->displayAll();
-    }
 }
 
 void MainWindow::addMatch()

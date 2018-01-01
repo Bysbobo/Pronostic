@@ -4,7 +4,7 @@
     * Created on :  04/12/2017
 ********************************************/
 
-#include <iostream>
+#include <QDebug>
 #include "league.h"
 
 League::League()
@@ -19,9 +19,9 @@ League::~League()
 
 void League::displayAll() const
 {
-	std::cout << aId << " - "
-			  << aName.toStdString() << " - "
-			  << aArea.toStdString() << std::endl;
+	qDebug() << aId << " - "
+			 << aName << " - "
+			 << aArea;
 }
 
 void League::setId(const int& id)
