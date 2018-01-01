@@ -4,6 +4,7 @@
     * Created on :  04/12/2017
 ********************************************/
 
+#include <QDebug>
 #include "league.h"
 
 League::League()
@@ -14,6 +15,13 @@ League::League()
 League::~League()
 {
 
+}
+
+void League::displayAll() const
+{
+	qDebug() << aId << " - "
+			 << aName << " - "
+			 << aArea;
 }
 
 void League::setId(const int& id)

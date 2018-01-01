@@ -4,6 +4,7 @@
     * Created on :  04/12/2017
 ********************************************/
 
+#include <QDebug>
 #include "match.h"
 
 Match::Match()
@@ -14,6 +15,16 @@ Match::Match()
 Match::~Match()
 {
 
+}
+
+void Match::displayAll() const
+{
+	qDebug() << aId << " - "
+			 << aLeagueId << " - "
+			 << aHomeTeamName << " - "
+			 << aAwayTeamName << " - "
+			 << aHomeTeamScore << " - "
+			 << aAwayTeamScore;
 }
 
 void Match::setId(const int& id)

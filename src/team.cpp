@@ -4,6 +4,7 @@
     * Created on :  04/12/2017
 ********************************************/
 
+#include <QDebug>
 #include "team.h"
 
 Team::Team()
@@ -14,6 +15,13 @@ Team::Team()
 Team::~Team()
 {
 
+}
+
+void Team::displayAll() const
+{
+	qDebug() << aId << " - "
+			 << aSmallName << " - "
+			 << aFullName;
 }
 
 void Team::setId(const int& id)
@@ -42,10 +50,6 @@ void Team::setLeagueIdList(const QString& leagueList)
 		aLeaguesId.push_back(list.left(separatorIndex).toInt()); // Extract data before separatorIndex
 		list.remove(0, separatorIndex+1); // Delete char already saved
 	}
-	/*
-	for (unsigned int i = 0; i < aLeaguesId.size(); ++i)
-		std::cout << aLeaguesId[i] << std::endl;
-	*/
 }
 
 void Team::addAnOtherMatchId()

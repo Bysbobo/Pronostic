@@ -231,8 +231,9 @@ void MainWindow::saveAs()
 
 void MainWindow::displayLeagues()
 {
-    if (apDbConnection->isOpen())
-        apDbConnection->displayLeagues();
+    const long unsigned int leagueSize = aLeaguesId.size();
+    for (unsigned int i = 0; i < leagueSize; ++i)
+        aLeaguesId[i]->displayAll();
 }
 
 void MainWindow::addLeague()
@@ -255,8 +256,9 @@ void MainWindow::deleteLeague()
 
 void MainWindow::displayTeams()
 {
-    if (apDbConnection->isOpen())
-        apDbConnection->displayTeams();
+    const long unsigned int teamSize = aTeamsId.size();
+    for (unsigned int i = 0; i < teamSize; ++i)
+        aTeamsId[i]->displayAll();
 }
 
 void MainWindow::addTeam()
@@ -279,8 +281,9 @@ void MainWindow::deleteTeam()
 
 void MainWindow::displayMatches()
 {
-    if (apDbConnection->isOpen())
-        apDbConnection->displayMatches();
+    const long unsigned int matchSize = aMatchesId.size();
+    for (unsigned int i = 0; i < matchSize; ++i)
+        aMatchesId[i]->displayAll();
 }
 
 void MainWindow::addMatch()

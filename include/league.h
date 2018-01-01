@@ -16,6 +16,8 @@ public:
 	League();
 	~League();
 
+	void displayAll() const;
+
 	void setId(const int& id);
 	void setName(const QString& name);
 	void setArea(const QString& area);
