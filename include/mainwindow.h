@@ -114,6 +114,11 @@ private slots:
 
 private:
     /**
+     * @brief This method retrieves the database indicator of the needed team.
+     * @param smallNameToFind : The small name to find.
+     */
+    unsigned int retrieveTeamIndicator(const QString& smallNameToFind);
+    /**
      * @brief This method creates the actions. It should be called before the createMenus() method.
      */
     void createActions();

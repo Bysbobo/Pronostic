@@ -14,6 +14,7 @@
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QDebug>
+#include <QFile>
 
 #include <iostream>
 #include <fstream>
@@ -39,11 +40,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     // Update boms from database
     updateBoms(apDbConnection);
-/*
+
     // Out of scope - Just to fill matches DB
     if( !refillMatchFromSaveFileToDatabase(ROOTTOMATCHES) )
         std::cout << "Aaaaaaaarf" << std::endl;
-*/
+
     // Show the status bar
     statusBar()->showMessage(tr("Ready"), 2000);
 }
@@ -114,75 +115,77 @@ void MainWindow::updateBoms(DbManager *d)
 
 bool MainWindow::refillMatchFromSaveFileToDatabase(const QString& path)
 {
-    // Read and stock all clubs
-    std::ifstream matchFlow(path.toStdString().c_str(), std::ios::in);
-    if (!matchFlow)
+    QFile filePath(path);
+    if (!filePath.open(QFile::ReadOnly))
     {
         qWarning() << "Failed to open Matchs.txt for reading!";
         return false;
     }
 
-    int firstScore, secondScore;
-    std::string firstTeam, secondTeam;
-    int ind1(1), ind2(1);
+    int firstScore, secondScore, totalIndicator(0);
+    QString firstTeam, secondTeam;
 
-    std::string line;
-    while (getline(matchFlow, line, '\n'))
+    QTextStream stream(&filePath);
+    while (!stream.atEnd())
     {
-        std::istringstream iss(line);
-        std::string aString;
+        QString line = stream.readLine();
+        QStringList list = line.split('/');
+        
         int count(-1);
-        while (getline(iss, aString, '/'))
+        unsigned int listSize = list.size();
+        for (unsigned int i = 0; i < listSize; ++i)
         {
-            count++;
-            if (count == 0)
+            ++count;
+            if (count == 0 || count == 1)
                 continue;
 
-            if (count == 1)
-                continue;
-
-            switch (count % 4)
+            bool ok = false;
+            switch(count % 4)
             {
                 case 2:
-                    firstTeam   =  aString; break;
+                    firstTeam   = list[i]; break;
                 case 3:
-                    firstScore  = atoi(aString.c_str()); break;
+                    firstScore  = list[i].toInt(&ok); break;
                 case 0:
-                    secondScore = atoi(aString.c_str()); break;
+                    secondScore = list[i].toInt(&ok); break;
                 case 1:
-                    secondTeam  =  aString; break;
+                    secondTeam  = list[i]; break;
             }
 
             if ((count % 4) == 1)
             {
-                unsigned int firstTeamInd, secondTeamInd;
-                long unsigned int teamSize = aTeamsId.size();
-                for (unsigned int i = 0; i < teamSize; ++i)
-                {
-                    if (aTeamsId[i]->getSmallName().toStdString() == firstTeam)
-                        firstTeamInd = i+1;
-                    else if (aTeamsId[i]->getSmallName().toStdString() == secondTeam)
-                        secondTeamInd = i+1;
-                }
-
-                std::cout << std::setw(3) << ind1++ << " :"
-                          << std::setw(4) << firstTeam << " (" << std::setw(2) << firstTeamInd;
-                std::cout << ") - ";
-                std::cout << std::setw(4) << secondTeam << " (" << std::setw(2) << secondTeamInd;
-                std::cout << ") / " << firstScore << " - " << secondScore << std::endl; 
+                unsigned int firstTeamInd  = retrieveTeamIndicator(firstTeam);
+                unsigned int secondTeamInd = retrieveTeamIndicator(secondTeam);
+                
+                qDebug() << totalIndicator + 1 << ":"
+                         << firstTeam << " (" << firstTeamInd
+                         << ") - "
+                         << secondTeam << " (" << secondTeamInd
+                         << ") / " << firstScore << " - " << secondScore;
             
                 if (apDbConnection->isOpen())
                 {
-                    if (!apDbConnection->fillMatch(ind2++, firstTeamInd, secondTeamInd, firstScore, secondScore))
-                        std::cout << "Oups..." << std::endl;
+                    if (!apDbConnection->fillMatch(++totalIndicator, firstTeamInd, secondTeamInd, firstScore, secondScore))
+                        stream << "Oups..." << endl;
                 }
             }
         }
     }
-
-    matchFlow.close();
-
+    
+    filePath.close();
     return true;
+}
+
+unsigned int MainWindow::retrieveTeamIndicator(const QString& smallNameToFind)
+{
+    long unsigned int teamSize = aTeamsId.size();
+    for (unsigned int i = 0; i < teamSize; ++i)
+    {
+        if (aTeamsId[i]->getSmallName() == smallNameToFind)
+            return i+1;
+    }
+
+    return 0;
 }
 
 void MainWindow::createActions()
