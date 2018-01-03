@@ -40,11 +40,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     // Update boms from database
     updateBoms(apDbConnection);
-
+/*
     // Out of scope - Just to fill matches DB
     if( !refillMatchFromSaveFileToDatabase(ROOTTOMATCHES) )
         std::cout << "Aaaaaaaarf" << std::endl;
-
+*/
     // Show the status bar
     statusBar()->showMessage(tr("Ready"), 2000);
 }

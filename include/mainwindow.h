@@ -13,7 +13,7 @@
 #include <QAction>
 #include <QApplication>
 #include <QObject>
-#include <vector>
+#include <QVector>
 
 /**
  * @brief The MainWindow class defines the main window of the Prono application.
@@ -241,9 +241,9 @@ private:
      */
     QAction *apAboutAction;
 
-    std::vector<League*> aLeaguesId;
-    std::vector<Match*> aMatchesId;
-    std::vector<Team*> aTeamsId;
+    QVector<League*> aLeaguesId;
+    QVector<Match*> aMatchesId;
+    QVector<Team*> aTeamsId;
 };
 
 #endif // MAINWINDOW_H

@@ -7,7 +7,7 @@
 #ifndef LEAGUE_H
 #define LEAGUE_H
 
-#include <vector>
+#include <QVector>
 #include <QString>
 
 class League
@@ -30,8 +30,8 @@ private:
 	QString aName;
 	QString aArea;
 
-	std::vector<int> aTeamsId;
-	std::vector<int> aMatchesId;
+	QVector<int> aTeamsId;
+	QVector<int> aMatchesId;
 };
 
 #endif // LEAGUE_H
