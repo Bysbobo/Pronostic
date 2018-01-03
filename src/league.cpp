@@ -21,6 +21,7 @@ void League::displayAll() const
 {
 	qDebug() << aId << " - "
 			 << aName << " - "
+			 << aNumberTeams << " - "
 			 << aArea;
 }
 
@@ -32,6 +33,11 @@ void League::setId(const int& id)
 void League::setName(const QString& name)
 {
 	aName = name;
+}
+
+void League::setNumberTeams(const int& numberTeams)
+{
+	aNumberTeams = numberTeams;
 }
 
 void League::setArea(const QString& area)

@@ -20,6 +20,7 @@ public:
 
 	void setId(const int& id);
 	void setName(const QString& name);
+	void setNumberTeams(const int& numberTeams);
 	void setArea(const QString& area);
 
 	void addAnOtherTeamId();
@@ -28,6 +29,7 @@ public:
 private:
 	int aId;
 	QString aName;
+	int aNumberTeams;
 	QString aArea;
 
 	QVector<int> aTeamsId;
