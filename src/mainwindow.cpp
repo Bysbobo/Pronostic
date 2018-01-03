@@ -8,6 +8,7 @@
 #include "team.h"
 #include "match.h"
 #include "league.h"
+#include "singleton.h"
 #include "widgets/addleaguewidget.h"
 #include "widgets/addmatchwidget.h"
 #include "widgets/addteamwidget.h"
@@ -27,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     createMenus();
 
     // Create the DB connection
-    apDbConnection = new DbManager(ROOTTODB);
+    apDbConnection = DbManager::getInstance(ROOTTODB);
 
     // Update boms from database
     updateBoms(apDbConnection);
@@ -73,7 +74,7 @@ MainWindow::~MainWindow()
     delete apHelpMenu;
 
     // DB Connection
-    delete apDbConnection;
+    apDbConnection->kill();
 }
 
 void MainWindow::updateBoms(DbManager *d)
