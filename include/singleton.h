@@ -7,12 +7,8 @@
 #ifndef SINGLETON_H
 #define SINGLETON_H
 
-<<<<<<< HEAD
 #include <QString>
-=======
-#include <iostream>
-#include "QString"
->>>>>>> 64a4111d650ff3d541d30e0c219f49ae1bee7548
+#include <QDebug>
 
 template <typename T>
 class Singleton
