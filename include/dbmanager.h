@@ -7,6 +7,7 @@
 #ifndef DBMANAGER_H
 #define DBMANAGER_H
 
+#include "singleton.h"
 #include "team.h"
 #include "match.h"
 #include "league.h"
@@ -15,9 +16,12 @@
 /**
  * @brief The DbManager class defines the connection to the database for information for Prono application.
  */
-class DbManager
+class DbManager : public Singleton<DbManager>
 {
-public:
+
+    friend class Singleton<DbManager>;
+
+private:
     /**
      * @brief The constructor of the DB Manager.
      * @param path : The path of the database.
@@ -27,7 +31,9 @@ public:
      * @brief The destructor of the DB Manager.
      */
     ~DbManager();
-    /**
+
+public:
+	/**
      * @brief This method is used to check if database connection is correct.
      */
     bool isOpen() const;
