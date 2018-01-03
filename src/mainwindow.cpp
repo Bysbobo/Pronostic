@@ -133,7 +133,7 @@ bool MainWindow::refillMatchFromSaveFileToDatabase(const QString& path)
         QStringList list = line.split('/');
         
         int count(-1);
-        unsigned int listSize = list.size();
+        const unsigned int listSize = list.size();
         for (unsigned int i = 0; i < listSize; ++i)
         {
             ++count;
@@ -155,8 +155,8 @@ bool MainWindow::refillMatchFromSaveFileToDatabase(const QString& path)
 
             if ((count % 4) == 1)
             {
-                unsigned int firstTeamInd  = retrieveTeamIndicator(firstTeam);
-                unsigned int secondTeamInd = retrieveTeamIndicator(secondTeam);
+                const unsigned int firstTeamInd  = retrieveTeamIndicator(firstTeam);
+                const unsigned int secondTeamInd = retrieveTeamIndicator(secondTeam);
                 
                 qDebug() << totalIndicator + 1 << ":"
                          << firstTeam << " (" << firstTeamInd
@@ -179,7 +179,7 @@ bool MainWindow::refillMatchFromSaveFileToDatabase(const QString& path)
 
 unsigned int MainWindow::retrieveTeamIndicator(const QString& smallNameToFind)
 {
-    long unsigned int teamSize = aTeamsId.size();
+    const unsigned int teamSize = aTeamsId.size();
     for (unsigned int i = 0; i < teamSize; ++i)
     {
         if (aTeamsId[i]->getSmallName() == smallNameToFind)
@@ -320,7 +320,7 @@ void MainWindow::saveAs()
 
 void MainWindow::displayLeagues()
 {
-    const long unsigned int leagueSize = aLeaguesId.size();
+    const unsigned int leagueSize = aLeaguesId.size();
     for (unsigned int i = 0; i < leagueSize; ++i)
         aLeaguesId[i]->displayAll();
 }
@@ -345,7 +345,7 @@ void MainWindow::deleteLeague()
 
 void MainWindow::displayTeams()
 {
-    const long unsigned int teamSize = aTeamsId.size();
+    const unsigned int teamSize = aTeamsId.size();
     for (unsigned int i = 0; i < teamSize; ++i)
         aTeamsId[i]->displayAll();
 }
@@ -370,7 +370,7 @@ void MainWindow::deleteTeam()
 
 void MainWindow::displayMatches()
 {
-    const long unsigned int matchSize = aMatchesId.size();
+    const unsigned int matchSize = aMatchesId.size();
     for (unsigned int i = 0; i < matchSize; ++i)
         aMatchesId[i]->displayAll();
 }
