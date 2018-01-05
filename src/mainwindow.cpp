@@ -15,6 +15,15 @@
 #include <QMenuBar>
 #include <QStatusBar>
 #include <QDebug>
+#include <QFile>
+
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <cstdlib>
+#include <algorithm>
+#include <iomanip>
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 {
@@ -32,7 +41,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
     // Update boms from database
     updateBoms(apDbConnection);
-
+/*
+    // Out of scope - Just to fill matches DB
+    if( !refillMatchFromSaveFileToDatabase(ROOTTOMATCHES) )
+        std::cout << "Aaaaaaaarf" << std::endl;
+*/
     // Show the status bar
     statusBar()->showMessage(tr("Ready"), 2000);
 }
@@ -99,6 +112,81 @@ void MainWindow::updateBoms(DbManager *d)
         League *l = new League(*tmpL);
         aLeaguesId.push_back(l);
     }
+}
+
+bool MainWindow::refillMatchFromSaveFileToDatabase(const QString& path)
+{
+    QFile filePath(path);
+    if (!filePath.open(QFile::ReadOnly))
+    {
+        qWarning() << "Failed to open Matchs.txt for reading!";
+        return false;
+    }
+
+    int firstScore, secondScore, totalIndicator(0);
+    QString firstTeam, secondTeam;
+
+    QTextStream stream(&filePath);
+    while (!stream.atEnd())
+    {
+        QString line = stream.readLine();
+        QStringList list = line.split('/');
+        
+        int count(-1);
+        const unsigned int listSize = list.size();
+        for (unsigned int i = 0; i < listSize; ++i)
+        {
+            ++count;
+            if (count == 0 || count == 1)
+                continue;
+
+            bool ok = false;
+            switch(count % 4)
+            {
+                case 2:
+                    firstTeam   = list[i]; break;
+                case 3:
+                    firstScore  = list[i].toInt(&ok); break;
+                case 0:
+                    secondScore = list[i].toInt(&ok); break;
+                case 1:
+                    secondTeam  = list[i]; break;
+            }
+
+            if ((count % 4) == 1)
+            {
+                const unsigned int firstTeamInd  = retrieveTeamIndicator(firstTeam);
+                const unsigned int secondTeamInd = retrieveTeamIndicator(secondTeam);
+                
+                qDebug() << totalIndicator + 1 << ":"
+                         << firstTeam << " (" << firstTeamInd
+                         << ") - "
+                         << secondTeam << " (" << secondTeamInd
+                         << ") / " << firstScore << " - " << secondScore;
+            
+                if (apDbConnection->isOpen())
+                {
+                    if (!apDbConnection->fillMatch(++totalIndicator, firstTeamInd, secondTeamInd, firstScore, secondScore))
+                        stream << "Oups..." << endl;
+                }
+            }
+        }
+    }
+    
+    filePath.close();
+    return true;
+}
+
+unsigned int MainWindow::retrieveTeamIndicator(const QString& smallNameToFind)
+{
+    const unsigned int teamSize = aTeamsId.size();
+    for (unsigned int i = 0; i < teamSize; ++i)
+    {
+        if (aTeamsId[i]->getSmallName() == smallNameToFind)
+            return i+1;
+    }
+
+    return 0;
 }
 
 void MainWindow::createActions()
@@ -232,7 +320,7 @@ void MainWindow::saveAs()
 
 void MainWindow::displayLeagues()
 {
-    const long unsigned int leagueSize = aLeaguesId.size();
+    const unsigned int leagueSize = aLeaguesId.size();
     for (unsigned int i = 0; i < leagueSize; ++i)
         aLeaguesId[i]->displayAll();
 }
@@ -257,7 +345,7 @@ void MainWindow::deleteLeague()
 
 void MainWindow::displayTeams()
 {
-    const long unsigned int teamSize = aTeamsId.size();
+    const unsigned int teamSize = aTeamsId.size();
     for (unsigned int i = 0; i < teamSize; ++i)
         aTeamsId[i]->displayAll();
 }
@@ -282,7 +370,7 @@ void MainWindow::deleteTeam()
 
 void MainWindow::displayMatches()
 {
-    const long unsigned int matchSize = aMatchesId.size();
+    const unsigned int matchSize = aMatchesId.size();
     for (unsigned int i = 0; i < matchSize; ++i)
         aMatchesId[i]->displayAll();
 }

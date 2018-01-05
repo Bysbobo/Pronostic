@@ -13,7 +13,7 @@
 #include <QAction>
 #include <QApplication>
 #include <QObject>
-#include <vector>
+#include <QVector>
 
 /**
  * @brief The MainWindow class defines the main window of the Prono application.
@@ -114,6 +114,11 @@ private slots:
 
 private:
     /**
+     * @brief This method retrieves the database indicator of the needed team.
+     * @param smallNameToFind : The small name to find.
+     */
+    unsigned int retrieveTeamIndicator(const QString& smallNameToFind);
+    /**
      * @brief This method creates the actions. It should be called before the createMenus() method.
      */
     void createActions();
@@ -126,6 +131,9 @@ private:
      * @param d : The link to the database connection.
      */
     void updateBoms(DbManager *d);
+
+    // To be deleted
+    bool refillMatchFromSaveFileToDatabase(const QString& path);
 
     // DB Access
     /**
@@ -233,9 +241,9 @@ private:
      */
     QAction *apAboutAction;
 
-    std::vector<League*> aLeaguesId;
-    std::vector<Match*> aMatchesId;
-    std::vector<Team*> aTeamsId;
+    QVector<League*> aLeaguesId;
+    QVector<Match*> aMatchesId;
+    QVector<Team*> aTeamsId;
 };
 
 #endif // MAINWINDOW_H

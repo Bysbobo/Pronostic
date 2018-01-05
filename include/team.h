@@ -7,7 +7,7 @@
 #ifndef TEAM_H
 #define TEAM_H
 
-#include <vector>
+#include <QVector>
 #include <QString>
 
 class Team
@@ -18,6 +18,9 @@ public:
 
 	void displayAll() const;
 	
+	int getId() const;
+	QString getSmallName() const;
+
 	void setId(const int& id);
 	void setSmallName(const QString& name);
 	void setFullName(const QString& name);
@@ -28,9 +31,9 @@ private:
 	int aId;
 	QString aSmallName;
 	QString aFullName;
-	std::vector<int> aLeaguesId;
+	QVector<int> aLeaguesId;
 
-	std::vector<int> aMatchesId;
+	QVector<int> aMatchesId;
 };
 
 #endif // TEAM_H

@@ -18,6 +18,7 @@
  */
 class DbManager : public Singleton<DbManager>
 {
+
     friend class Singleton<DbManager>;
 
 private:
@@ -35,40 +36,53 @@ public:
 	/**
      * @brief This method is used to check if database connection is correct.
      */
-	bool isOpen() const;
-	/**
+    bool isOpen() const;
+    /**
      * @brief This method is used to display all teams from the database.
      */
-	bool displayTeams() const;
-	/**
+    bool displayTeams() const;
+    /**
      * @brief This method is used to extract teams information from database.
      * @param team : The required team.
      */
-	bool extractTeam(const int& teamId, Team& t);
-	/**
+    bool extractTeam(const int& teamId, Team& t);
+    /**
      * @brief This method is used to display all matches from the database.
      */
-	bool displayMatches() const;
-	/**
+    bool displayMatches() const;
+    /**
      * @brief This method is used to extract matches information from database.
      * @param match : The required match.
      */
-	bool extractMatch(const int& matchId, Match& m);
-	/**
+    bool extractMatch(const int& matchId, Match& m);
+    /**
+     * @brief This method is used to fill matches to the database.
+     * @param id : The match id.
+     * @param hTName : The hometeam name of the match.
+     * @param aTName : The awayteam name of the match.
+     * @param hTScore : The hometeam score of the match.
+     * @param aTScore : The awayteam score of the match.
+     */
+    bool fillMatch(const int& id,
+                   const int& hTName,
+                   const int& aTName,
+                   const int& hTScore,
+                   const int& aTScore);
+    /**
      * @brief This method is used to display all leagues from the database.
      */
-	bool displayLeagues() const;
-	/**
+    bool displayLeagues() const;
+    /**
      * @brief This method is used to extract leagues information from database.
      * @param league : The required league.
      */
-	bool extractLeague(const int& leagueId, League& l);
+    bool extractLeague(const int& leagueId, League& l);
 
 private:
-	/**
+    /**
      * @brief aDb : The DB connection.
      */
-	QSqlDatabase aDb;
+    QSqlDatabase aDb;
 };
 
 #endif // DBMANAGER_H

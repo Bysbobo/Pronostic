@@ -89,7 +89,7 @@ bool DbManager::extractTeam(const int& teamId, Team& t)
         return true;
     }
     
-    //qDebug() << "extractTeam error: " << query.lastError();
+    qDebug() << "extractTeam error: " << query.lastError();
     return false;
 }
 
@@ -153,8 +153,25 @@ bool DbManager::extractMatch(const int& matchId, Match& m)
         return true;
     }
 
-    //qDebug() << "extractMatch error: " << query.lastError();
+    qDebug() << "extractMatch error: " << query.lastError();
     return false;
+}
+
+bool DbManager::fillMatch(const int& id,
+                          const int& hTName,
+                          const int& aTName,
+                          const int& hTScore,
+                          const int& aTScore)
+{
+    QSqlQuery query;
+    query.prepare("INSERT INTO match (id, home_team_id, away_team_id, league_id, home_team_score, away_team_score) VALUES ((:id), (:hTName), (:aTName), '1', (:hTScore), (:aTScore));");
+    query.bindValue(":id",      QVariant(id));
+    query.bindValue(":hTName",  QVariant(hTName));
+    query.bindValue(":aTName",  QVariant(aTName));
+    query.bindValue(":hTScore", QVariant(hTScore));
+    query.bindValue(":aTScore", QVariant(aTScore));
+
+    return query.exec();
 }
 
 bool DbManager::displayLeagues() const
@@ -166,14 +183,17 @@ bool DbManager::displayLeagues() const
     {
         int idId = query.record().indexOf("id");
         int idName = query.record().indexOf("name");
+        int idNumberTeams = query.record().indexOf("number_teams");
         int idArea = query.record().indexOf("area");
         while (query.next())
         {
             QString theId = query.value(idId).toString();
             QString theName = query.value(idName).toString();
+            QString theNumberTeams = query.value(idNumberTeams).toString();
             QString theAera = query.value(idArea).toString();
             qDebug() << theId << "-"
                      << theName << "-"
+                     << theNumberTeams << "-"
                      << theAera;
         }
         return true;
@@ -193,15 +213,17 @@ bool DbManager::extractLeague(const int& leagueId, League& l)
     {
         /*  0 - Id of this league
          *  1 - Name
-         *  2 - Area
+         *  2 - Number teams
+         *  3 - Area
          */
         l.setId(query.value(0).toInt());
         l.setName(query.value(1).toString());
-        l.setArea(query.value(2).toString());
+        l.setNumberTeams(query.value(2).toInt());
+        l.setArea(query.value(3).toString());
     
         return true;
     }
 
-    //qDebug() << "extractLeague error: " << query.lastError();
+    qDebug() << "extractLeague error: " << query.lastError();
     return false;
 }

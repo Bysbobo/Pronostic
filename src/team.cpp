@@ -24,6 +24,16 @@ void Team::displayAll() const
 			 << aFullName;
 }
 
+int Team::getId() const
+{
+	return aId;
+}
+
+QString Team::getSmallName() const
+{
+	return aSmallName;
+}
+
 void Team::setId(const int& id)
 {
 	aId = id;
