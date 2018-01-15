@@ -17,6 +17,8 @@ public:
 
 	void displayAll() const;
 
+	int getId() const;
+
 	void setId(const int& id);
 	void setLeagueId(const int& LeagueId);
 	void setHomeTeamName(const QString& homeTeamName);

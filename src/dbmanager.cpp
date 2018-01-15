@@ -89,7 +89,8 @@ bool DbManager::extractTeam(const int& teamId, Team& t)
         return true;
     }
     
-    qDebug() << "extractTeam error: " << query.lastError();
+    if (teamId <= t.getId())
+        qDebug() << "extractTeam error: " << query.lastError();
     return false;
 }
 
@@ -153,7 +154,8 @@ bool DbManager::extractMatch(const int& matchId, Match& m)
         return true;
     }
 
-    qDebug() << "extractMatch error: " << query.lastError();
+    if (matchId <= m.getId())
+        qDebug() << "extractMatch error: " << query.lastError();
     return false;
 }
 
@@ -224,6 +226,7 @@ bool DbManager::extractLeague(const int& leagueId, League& l)
         return true;
     }
 
-    qDebug() << "extractLeague error: " << query.lastError();
+    if (leagueId <= l.getId())
+        qDebug() << "extractLeague error: " << query.lastError();
     return false;
 }

@@ -27,6 +27,11 @@ void Match::displayAll() const
 			 << aAwayTeamScore;
 }
 
+int Match::getId() const
+{
+	return aId;
+}
+
 void Match::setId(const int& id)
 {
 	aId = id;

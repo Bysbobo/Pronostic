@@ -25,6 +25,11 @@ void League::displayAll() const
 			 << aArea;
 }
 
+int League::getId() const
+{
+	return aId;
+}
+
 void League::setId(const int& id)
 {
 	aId = id;

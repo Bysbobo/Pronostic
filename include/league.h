@@ -18,6 +18,8 @@ public:
 
 	void displayAll() const;
 
+	int getId() const;
+
 	void setId(const int& id);
 	void setName(const QString& name);
 	void setNumberTeams(const int& numberTeams);
